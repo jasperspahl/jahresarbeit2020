@@ -1,11 +1,11 @@
-const mongoose, { Schema } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema } = require("mongoose");
 
 const HiveSchema = new Schema({
-	name: String;
-	weight: Number;
-	time: Date;
+	name: String,
+	data: [{time: Date, weight: Number}]
 });
 
-const Hive = mongoose.model('hive', HiveSchema);
+const Hive = mongoose.model("hive", HiveSchema);
 
 module.exports = Hive;
