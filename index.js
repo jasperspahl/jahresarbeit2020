@@ -64,7 +64,7 @@ app.get("/name/:name", (req, res) => {
 		if (err){
 			console.log(`ERROR @ GET/id/:id: ${err}`);
 			res.status(500).send();
-		} else if (!doc) {
+		} else if (doc === null) {
 			res.status(404).send();
 		} else {
 			const resontBody = {
