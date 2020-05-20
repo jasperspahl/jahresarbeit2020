@@ -1,0 +1,12 @@
+{
+  "name": "testhive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jasper Spahl <jasperspahl@web.de>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "simplex-noise": "^2.4.0"
+  }
+}
