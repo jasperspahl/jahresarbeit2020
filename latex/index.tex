@@ -1,4 +1,5 @@
 \documentclass[ngerman,12pt]{scrartcl}
+% TODO: Was ist eine API / REST-API
 % Setup {{{1
 % Packages {{{2
 \usepackage[backend=biber]{biblatex}
@@ -17,6 +18,7 @@
 \usepackage{courier}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
+\usepackage{wrapfig}
 
 % Heading {{{2
 \pagestyle{fancy}
@@ -34,6 +36,8 @@
 \renewcommand{\baselinestretch}{1.1}
 % }}}
 \author{Jasper Levin Spahl}
+% Tikz Setup {{{2
+\usetikzlibrary{shapes.geometric, arrows.meta}
 % Bibliograthy Setup {{{2
 \addbibresource{quellen.bib}
 
@@ -84,19 +88,41 @@ Das heißt die Daten werden an irgendeinen Server übermittelt der sie dann spei
 Man weiß also nicht er alles auf die Daten zugreifen kann.
 Diese potenzielle Sicherheitslücke hat man nicht, wenn man das ganze selbst entwickelt.
 
-\section{Funktionsweise meiner Bienenstockwaage} % {{{1
+% Funktionsweise meiner Bienenstockwaage {{{1
+\section{Funktionsweise meiner Bienenstockwaage}
 
 Eine Bienenstockwaage ist eigentlich recht simpel.
 Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen abständen speichert bzw.
 mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
 
-Im Falle meiner Bienenstockwaage habe ich einen
 
-\begin{tikzpicture}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
 
-	\node[draw] (waage) at (0,0) {Waage};
-	\node[draw] (server) [below of = waage] {Server};
-\end{tikzpicture}
+		\node[draw] (waage1) at (0,0) {Waage 1};
+		\node[draw] (waage2) [below of = waage1] {Waage 2};
+		\node[draw=none] (waage3) [below of = waage2, below = -0.5cm] {...};
+		\node[draw] (waagen) [below of = waage3, below = -0.6cm] {Waage $n$};
+		\node[draw, shape=circle] (server) [right of = waage2, right = 2cm] {Server};
+		\node[draw] (app)    [below of = server, below = 0.7cm] {App};
+		\node[draw] (data)   [right of = server, right = 1.5cm] {Datenbank};
+
+		\draw[arrows=-Stealth] (waage1) -- (server);
+		\draw[arrows=-Stealth] (waage2) -- (server);
+		\draw[arrows=-Stealth] (waagen) -- (server);
+		\draw[arrows=Stealth-Stealth] (server) -- (data);
+		\draw[Stealth-] (app) -- (server);
+	\end{tikzpicture}
+	\caption{Netzwerk Diagramm\label{abb:networkdiagram}}
+\end{figure}
+
+Im Falle meiner Bienenstockwaage habe ich einen mir ein System überlegt in das man beliebig viele Waagen ein spannen kann.
+Es besteht aus einem zentralen Server mit einer Datenbank kommunizieren kann.
+Die einzelnen Bienenstockwaagen schicken ihre Daten an den zentralen Server welcher diese in Datenbank abspeichert.
+Siehe Abbildung~\ref{abb:networkdiagram}.
+
+Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{} lesen.} mit dem Server verbunden ist.
 
 % Literaturverzeichnis {{{1
 \printbibliography{}
