@@ -1,8 +1,10 @@
-\documentclass[12pt]{scrartcl}
-% Packages {{{1
+\documentclass[ngerman,12pt]{scrartcl}
+% Setup {{{1
+% Packages {{{2
+\usepackage[backend=biber]{biblatex}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
-\usepackage{ngerman}
+\usepackage{babel}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
@@ -14,10 +16,9 @@
 \usepackage[scaled=0.9]{helvet}
 \usepackage{courier}
 \usepackage[T1]{fontenc}
-\usepackage{cite}
 \usepackage{hyperref}
 
-% Heading {{{1
+% Heading {{{2
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
@@ -26,16 +27,18 @@
 \fancyhead[C]{\thepage}
 %\renewcommand{\headrulewidth}{0pt}
 
-% Paragraph {{{1
+% Paragraph {{{2
 %\parindent 0ex
 \setlength{\parindent}{1em}
 \setlength{\parskip}{1em}
 \renewcommand{\baselinestretch}{1.1}
-
+% }}}
 \author{Jasper Levin Spahl}
+% Bibliograthy Setup {{{2
+\addbibresource{quellen.bib}
 
 \begin{document}
-% Titlepage {{{1
+% Titlepage {{{2
 \begin{titlepage}
 \begin{center}
 \vspace*{1cm}
@@ -54,16 +57,47 @@ Klasse: 12Kss\\
 \end{center}
 \end{titlepage}
 
-% Table of contents {{{1
+% Table of contents {{{2
 \tableofcontents
 \thispagestyle{empty}
 \clearpage
 \setcounter{page}{1}
+
 % Einleitung {{{1
 \section{Einleitung}
 
-Bei der Auswahl des Themas meiner Jahresarbeit war ich lang unerntschlossen.
-Ich wusste dofort, dass ich entweder etwas kreatives oder etwas Im It-Bereich machen wollte.
-Meine
-%{{{1
+Bei der Auswahl des Themas meiner Jahresarbeit war ich lang unentschlossen.
+Ich wusste sofort, dass ich entweder etwas kreatives oder etwas Im It-Bereich machen wollte.
+Meine erste Idee war es einen Lichtwecker zubauen.
+Ich bemerkte jedoch als ich damit fast fertig war das, dass ganze sehr viel leichter umzusetzen war, sodass ich damit keine komplette Jahresarbeit füllen konnte.
+Mir gefiel allerdings das Thema Smarthome/Homeautomation.
+Letztendlich brachte mich mein Vater auf die Idee.
+Er erzählte mir vom einem Freunde der eine Bienenstockwaage besitzt.
+Mit hilft so einer Bienenstockwaage kann man überwachen wie viel Honig sich gerade in dem Stock der auf ihr steht befindet.
+Diese Waagen kosten zwischen 800 und 3000 \euro{}, sind somit viel zu überteuert.
+
+Wenn man jedoch eine billigere Version haben will muss man sie sich selbst bauen.
+Es gibt zwar, wie ich später herausfand, eine relative einfache Bauanleitung für ein solches System.
+~\cite{Honeypi}
+Allerdings benötigt dieses System einen Anschluss an eine Cloud, dessen Source Code nicht offen ist.
+Das heißt die Daten werden an irgendeinen Server übermittelt der sie dann speichert.
+Man weiß also nicht er alles auf die Daten zugreifen kann.
+Diese potenzielle Sicherheitslücke hat man nicht, wenn man das ganze selbst entwickelt.
+
+\section{Funktionsweise meiner Bienenstockwaage} % {{{1
+
+Eine Bienenstockwaage ist eigentlich recht simpel.
+Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen abständen speichert bzw.
+mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
+
+Im Falle meiner Bienenstockwaage habe ich einen
+
+\begin{tikzpicture}
+
+	\node[draw] (waage) at (0,0) {Waage};
+	\node[draw] (server) [below of = waage] {Server};
+\end{tikzpicture}
+
+% Literaturverzeichnis {{{1
+\printbibliography{}
 \end{document}
