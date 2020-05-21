@@ -1,8 +1,9 @@
 \documentclass[ngerman,12pt]{scrartcl}
+\usepackage[backend=biber]{biblatex}
 % TODO: Was ist eine API / REST-API
+% TODO: Was ist ein Server
 % Setup {{{1
 % Packages {{{2
-\usepackage[backend=biber]{biblatex}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{babel}
@@ -88,15 +89,24 @@ Das heißt die Daten werden an irgendeinen Server übermittelt der sie dann spei
 Man weiß also nicht er alles auf die Daten zugreifen kann.
 Diese potenzielle Sicherheitslücke hat man nicht, wenn man das ganze selbst entwickelt.
 
+% Wichtige Begriffe {{{1
+\section{Wichtige Begriffe}
+Da ich in meiner Jahresarbeit mit über komplexere Konzepte ist diese kurze Begriffserklärung notwendig.
+% Was ist ein Server? {{{2
+\subsection{Was ist ein Server?}
+~\cite{IonosServer}
+% Was ist eine API {{{2
+\subsection{Was ist eine API?}
+\subsubsection{REST-API}\label{sec:restapi}
 % Funktionsweise meiner Bienenstockwaage {{{1
 \section{Funktionsweise meiner Bienenstockwaage}
-
+% Generelles {{{2
 Eine Bienenstockwaage ist eigentlich recht simpel.
 Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen abständen speichert bzw.
 mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
 
@@ -122,7 +132,16 @@ Es besteht aus einem zentralen Server mit einer Datenbank kommunizieren kann.
 Die einzelnen Bienenstockwaagen schicken ihre Daten an den zentralen Server welcher diese in Datenbank abspeichert.
 Siehe Abbildung~\ref{abb:networkdiagram}.
 
-Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{} lesen.} mit dem Server verbunden ist.
+Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:restapi} lesen.} mit dem Server verbunden ist.
+
+% Die Waage {{{2
+\subsection{Die Waage}
+
+% Der Server {{{2
+\subsection{Der Server}
+
+% Die Datenbank {{{2
+\subsection{Die Datenbank}
 
 % Literaturverzeichnis {{{1
 \printbibliography{}
