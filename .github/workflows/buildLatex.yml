@@ -9,4 +9,9 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
         with:
-          root_file: latex/index.tex
+          root_file: index.tex
+          working_directory: latex/
+      - name: Check for files
+        run: |
+          set -e
+          file latex/index.pdf | grep -q ' PDF '
