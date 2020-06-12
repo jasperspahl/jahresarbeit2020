@@ -91,6 +91,7 @@ Diese potenzielle Sicherheitslücke hat man nicht, wenn man das ganze selbst ent
 % Wichtige Begriffe {{{1
 \section{Wichtige Begriffe}
 Da ich in meiner Jahresarbeit mit über komplexere Konzepte ist diese kurze Begriffserklärung notwendig.
+
 % Was ist ein Server? {{{2
 \subsection{Was ist ein Server?}
 Der Begriff \enquote{\textbf{Server}} (englisch für \textit{Diener}) hat zwei Bedeutungen.
@@ -109,9 +110,10 @@ Selbst einen modernen Kühlschrank kann man heute zu tage als Server bezeichnen 
 Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{Anwendungsprogrammier Schnittstelle}}, ist eine Schnittstelle die es Programmen und Hardware ermöglicht mit einander zu kommunizieren.
 Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\cite{GSApi}
 
-In meiner Jahresarbeit werde ich vorallem über \textbf{Web-APIs} reden.
+
 Es gibt viele veschidene Standarts eine API zu programmieren.
-Ein solcher Standart ist \textbf{REST} (kurz für \enquote{\textbf{Representational State Transfer}}\footnote{Englisch für \textit{Repräsentative Zustantsübertragung}}).
+
+In meiner Jahresarbeit werde ich vorallem über \textbf{Web-APIs} reden.
 
 % Funktionsweise meiner Bienenstockwaage {{{1
 \section{Funktionsweise meiner Bienenstockwaage}
@@ -129,25 +131,38 @@ mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
 		\node[draw] (waage2) [below of = waage1] {Waage 2};
 		\node[draw=none] (waage3) [below of = waage2, below = -0.5cm] {...};
 		\node[draw] (waagen) [below of = waage3, below = -0.6cm] {Waage $n$};
-		\node[draw, shape=circle] (server) [right of = waage2, right = 2cm] {Server};
-		\node[draw] (app)    [below of = server, below = 0.7cm] {App};
+		\node[draw, shape=circle] (server) [right of = waage2, right = 2cm] {Webserver};
+		\node[draw] (app)    [below of = server, below = 0.7cm] {Webseite};
 		\node[draw] (data)   [right of = server, right = 1.5cm] {Datenbank};
 
-		\draw[arrows=-Stealth] (waage1) -- (server);
-		\draw[arrows=-Stealth] (waage2) -- (server);
-		\draw[arrows=-Stealth] (waagen) -- (server);
-		\draw[arrows=Stealth-Stealth] (server) -- (data);
-		\draw[Stealth-] (app) -- (server);
+		\draw[-Stealth] (waage1) -- (server);
+		\draw[-Stealth] (waage2) -- (server);
+		\draw[-Stealth] (waagen) -- (server);
+		\draw[Stealth-Stealth] (server) -- (data);
+		\draw[Stealth-Stealth] (app) -- (server);
 	\end{tikzpicture}
-	\caption{Netzwerk Diagramm\label{abb:networkdiagram}}
+	\caption{Netzwerk Diagramm meines Serversystems\label{abb:networkdiagram}}
 \end{figure}
 
-Im Falle meiner Bienenstockwaage habe ich einen mir ein System überlegt in das man beliebig viele Waagen ein spannen kann.
-Es besteht aus einem zentralen Server mit einer Datenbank kommunizieren kann.
-Die einzelnen Bienenstockwaagen schicken ihre Daten an den zentralen Server welcher diese in Datenbank abspeichert.
-Siehe Abbildung~\ref{abb:networkdiagram}.
+Im Falle meiner Bienenstockwaage habe ich einen mir ein System überlegt, das gut skalierbar ist. 
+Dieses System besteht aus mehreren Bestandteilen welche über verschiedene APIs mit einander kommunizieren.
 
-Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:api} lesen.} mit dem Server verbunden ist.
+Das wichtigste Element davon ist der Hauptserver auf dem die Datenbank MongoDB und der Webserver laufen.
+Ich habe mir dafür einen Raspberry Pi 3B+ angeschafft, da ich alle Daten lokal speichern wollte.
+Das muss man aber nicht, da mach sich auch über die Plattform \href{https://www.mongodb.com/cloud/atlas}{MongoDB Atlas} eine Datenbank mieten kann und mit Hilfe von \href{https://www.linode.com}{Linode} oder \href{https://www.digitalocean.com/}{Digital Ocean} den Webserver hosten kann.
+
+Die Datenbank kann man sich wie einen Schrank vorstellen in Ordner (Collections) sind worin sich Dokumente befinden.
+
+Der Webserver hat zwei wichtige Aufgaben:
+die Bereitstellung der Webseite und die Verwaltung der Daten.
+
+
+In Abbildung~\ref{abb:networkdiagram} ist dieses da gestellt.
+
+
+Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API
+\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:api} lesen.}
+mit dem Server verbunden ist.
 
 % Die Waage {{{2
 \subsection{Die Waage}
