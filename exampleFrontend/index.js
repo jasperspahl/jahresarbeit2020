@@ -31,7 +31,7 @@ function drawGrid(xGrid, yGrid) {
 		ctx.moveTo(0, i);
 		ctx.lineTo(canvas.width, i);
 	}
-	ctx.strokeStyle = "#ebdeb288"
+	ctx.strokeStyle = "#ebdeb288";
 	ctx.stroke();
 }
 function drawAxis(offset){
