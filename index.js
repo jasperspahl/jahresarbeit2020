@@ -7,14 +7,14 @@ const Hive = require("./models/hive");
 // configure env with dotenv
 require("dotenv").config();
 
-// {{{ load envvars
+// {{{ load env vars
 const port = 5000 || process.env.PORT;
 const dbUri = process.env.DATABASE_URI;
 const publicDir = false || process.env.PUBLICDIR;
 const app = express();
 
 
-publicDir ? app.use(express.static(publicDir)): console.log("No PUBLICDIR definde in .env") ;
+publicDir ? app.use(express.static(publicDir)): console.log("No PUBLICDIR defined in .env") ;
 app.use(express.json());
 // }}}
 
