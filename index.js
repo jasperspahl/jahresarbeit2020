@@ -60,9 +60,9 @@ app.get("/id/:id", (req, res) => {
 
 // {{{ Route GET/name/:name
 app.get("/name/:name", (req, res) => {
-	Hive.findOne({name: req.body.name}, (err, doc) => {
+	Hive.findOne({name: req.params.name}, (err, doc) => {
 		if (err){
-			console.log(`ERROR @ GET/id/:id: ${err}`);
+			console.log(`ERROR @ GET/name/:name: ${err}`);
 			res.status(500).send();
 		} else if (doc === null) {
 			res.status(404).send();
@@ -98,7 +98,7 @@ app.post("/add", (req, res) => {
 						console.log(`ERROR @ POST/add : ${err}`);
 						res.status(500).send();
 					} else {
-						res.send(doc);
+						res.send(doc.data[doc.data.length-1]);
 					}
 				});
 			}
