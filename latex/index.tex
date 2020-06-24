@@ -1,5 +1,5 @@
-\documentclass[ngerman,12pt]{scrartcl}
-\usepackage[backend=biber, style=authortitle-icomp]{biblatex}
+\documentclass[a4paper, ngerman,12pt]{scrartcl}
+\usepackage[backend=biber]{biblatex}
 % TODO: [ ] Was ist eine REST-API
 % Setup {{{1
 % Packages {{{2
@@ -12,6 +12,7 @@
 \usepackage{fancyhdr}
 \usepackage{tikz}
 \usepackage{csquotes}
+\usepackage{xpatch}
 \usepackage[gen]{eurosym}
 \usepackage{mathptmx}
 \usepackage[scaled=0.9]{helvet}
@@ -79,7 +80,7 @@ Diese Waagen kosten zwischen 800 und 3000 \euro{}, sind somit viel zu überteuer
 
 Wenn man jedoch eine billigere Version haben will muss man sie sich selbst bauen.
 Es gibt zwar, wie ich später herausfand, eine relative einfache Bauanleitung für ein solches System.
-~\footcite{Honeypi}
+~\cite{Honeypi}
 Allerdings benötigt dieses System einen Anschluss an eine Cloud, dessen Source Code nicht offen ist.
 Das heißt die Daten werden an irgendeinen Server übermittelt der sie dann speichert.
 Man weiß also nicht er alles auf die Daten zugreifen kann.
@@ -94,7 +95,7 @@ Da ich in meiner Jahresarbeit mit über komplexere Konzepte ist diese kurze Begr
 Der Begriff \enquote{\textbf{Server}} (englisch für \textit{Diener}) hat zwei Bedeutungen.
 Es gibt Hardware und Soft\-ware-Ser\-ver.
 Als \textbf{Soft\-ware-Ser\-ver} bezeichnet man ein Programm das einen speziellen Dienst anderen Programmen, sogenannten Clients (englisch für \textit{Kunden}), zur Verfügung stellt.
-Ein Webserver zum Beispiel stellt eine Internetseite ins Netz.~\footcite[ver.][]{IonosServer}
+Ein Webserver zum Beispiel stellt eine Internetseite ins Netz.~\cite[ver.][]{IonosServer}
 
 Wenn die meisten Leute an einen Server denken, haben sie einen große Server Farm im Kopf.
 Doch ein Hard\-ware-Ser\-ver muss nicht unbedingt groß sein und viel Strom verbrauchen.
@@ -105,7 +106,7 @@ Selbst einen modernen Kühlschrank kann man heute zu tage als Server bezeichnen 
 \subsection{Was ist eine API?}\label{sec:api}
 
 Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{An\-wen\-dungs\-pro\-gram\-mier Schnittstelle}}, ist eine Schnittstelle die es Programmen und Hardware ermöglicht mit einander zu kommunizieren.
-Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\footcite[][]{GSApi}
+Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\cite[][]{GSApi}
 
 
 Es gibt viele veschidene Standarts eine API zu programmieren.
