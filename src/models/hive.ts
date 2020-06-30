@@ -1,11 +1,19 @@
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
+import { Schema, model, Document} from "mongoose";
 
-const HiveSchema = new Schema({
+export interface IHive extends Document {
+	name: string,
+	data: {
+		time: Date,
+		weight: number
+	}[]
+
+}
+
+const HiveSchema: Schema<IHive> = new Schema({
 	name: String,
 	data: [{time: Date, weight: Number}]
 });
 
-const Hive = mongoose.model("hive", HiveSchema);
+const Hive = model<IHive>("hive", HiveSchema);
 
-module.exports = Hive;
+export { Hive };

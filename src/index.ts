@@ -1,7 +1,9 @@
 // {{{ Imports
-const express = require("express");
-const mongoose = require("mongoose");
-const Hive = require("./models/hive");
+import * as express from "express";
+import * as cors from "cors";
+import * as mongoose from "mongoose";
+import { Hive, IHive } from "./models/hive";
+import { requestLoggerMiddleware } from "./middleware/requestLogger";
 // }}}
 
 // configure env with dotenv
@@ -15,14 +17,16 @@ const app = express();
 
 
 publicDir ? app.use(express.static(publicDir)): console.log("No PUBLICDIR defined in .env") ;
+app.use(cors());
 app.use(express.json());
+app.use(requestLoggerMiddleware);
 // }}}
 
 // {{{ Route GET/init/:name
 // Route /init/:name tests if a beehive with name : :name is in the DB if it finds one it return the objectID else
 // it creates one
-app.get("/init/:name", (req, res) => {
-	Hive.findOne({name: req.params.name}, (err, doc) => {
+app.get("/init/:name", (req: express.Request, res: express.Response) => {
+	Hive.findOne({name: req.params.name}, (err, doc: IHive) => {
 		if (err){
 			console.log(`ERROR @ GET/init/:name : ${err}`);
 			res.status(500).send();
@@ -40,7 +44,7 @@ app.get("/init/:name", (req, res) => {
 
 // {{{ Route GET/id/:id
 app.get("/id/:id", (req, res) => {
-	Hive.findById(req.params.id, (err, doc) => {
+	Hive.findById(req.params.id, (err, doc: IHive) => {
 		if (err){
 			console.log(`ERROR @ GET/id/:id: ${err}`);
 			res.status(500).send();
@@ -82,7 +86,7 @@ app.get("/name/:name", (req, res) => {
 app.post("/add", (req, res) => {
 	if (req.body._id && req.body.weight) {
 		console.log(`New entry from ${req.body._id}: ${req.body.weight}`);
-		Hive.findById(req.body._id, (err, doc) => {
+		Hive.findById(req.body._id, (err, doc: IHive) => {
 			if(err){
 				console.log(`ERROR @ POST/add : ${err}`);
 				res.status(500).send();
@@ -90,7 +94,7 @@ app.post("/add", (req, res) => {
 				if (!doc) {
 					res.status(404).send();
 				}
-				doc.data.push({ time: Date.now(), weight: req.body.weight });
+				doc.data.push({ time: new Date(Date.now()), weight: req.body.weight });
 				//console.log(doc);
 
 				doc.save((err, doc) => {
