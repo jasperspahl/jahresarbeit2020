@@ -3,7 +3,7 @@
 % TODO: [ ] Was ist eine REST-API
 % Setup {{{1
 % Packages {{{2
-%\usepackage[margin=1in]{geometry}
+\usepackage[top=4cm, left=3.5cm, right=3.5cm, bottom=5cm]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{babel}
 \usepackage{graphicx}
@@ -108,8 +108,7 @@ Selbst einen modernen Kühlschrank kann man heute zu tage als Server bezeichnen 
 Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{An\-wen\-dungs\-pro\-gram\-mier Schnittstelle}}, ist eine Schnittstelle die es Programmen und Hardware ermöglicht mit einander zu kommunizieren.
 Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\cite[][]{GSApi}
 
-
-Es gibt viele veschidene Standarts eine API zu programmieren.
+% Es gibt viele veschidene Standarts eine API zu programmieren.
 
 In meiner Jahresarbeit werde ich vorallem über \textbf{Web-APIs} reden.
 
@@ -148,16 +147,13 @@ Das wichtigste Element davon ist der Hauptserver auf dem die Datenbank MongoDB u
 Ich habe mir dafür einen Raspberry Pi 3B+ angeschafft, da ich alle Daten lokal speichern wollte.
 Das muss man aber nicht, da mach sich auch über die Plattform \href{https://www.mongodb.com/cloud/atlas}{MongoDB Atlas} eine Datenbank mieten kann und mit Hilfe von \href{https://www.linode.com}{Linode} oder \href{https://www.digitalocean.com/}{Digital Ocean} den Webserver hosten kann.
 
-Die Datenbank kann man sich wie einen Schrank vorstellen in Ordner (Collections) sind worin sich Dokumente befinden.
-
 Der Webserver hat zwei wichtige Aufgaben:
 die Bereitstellung der Webseite und die Verwaltung der Daten.
 
 In Abbildung~\ref{abb:networkdiagram} ist dieses da gestellt.
 
-
 Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API
-\footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:api} lesen.}
+% \footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:api} lesen.}
 mit dem Server verbunden ist.
 
 % Literaturverzeichnis {{{1
