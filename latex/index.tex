@@ -1,10 +1,13 @@
 \documentclass[a4paper, ngerman,12pt]{scrartcl}
 \usepackage[backend=biber]{biblatex}
+% shell-escape
 % TODO: [ ] Was ist eine REST-API
+% 	[ ] Hosten definiren
 % Setup {{{1
 % Packages {{{2
 \usepackage[top=4cm, left=3.5cm, right=3.5cm, bottom=5cm]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
+\usepackage{minted}
 \usepackage{babel}
 \usepackage{graphicx}
 \usepackage{float}
@@ -21,6 +24,9 @@
 \usepackage[breaklinks=true]{hyperref}
 \usepackage{wrapfig}
 \usepackage[onehalfspacing]{setspace}
+% Minted {{{2
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+%\usemintedstyle{solarized-dark}
 % Heading {{{2
 \pagestyle{fancy}
 \fancyhead{}
@@ -69,7 +75,7 @@ Klasse: 12Kss\\
 \section{Einleitung}
 
 Bei der Auswahl des Themas meiner Jahresarbeit war ich lang unentschlossen.
-Ich wusste sofort, dass ich entweder etwas kreatives oder etwas Im It-Bereich machen wollte.
+Ich wusste sofort, dass ich entweder etwas kreatives oder etwas im It-Bereich machen wollte.
 Meine erste Idee war es einen Lichtwecker zubauen.
 Ich bemerkte jedoch als ich damit fast fertig war das, dass ganze sehr viel leichter umzusetzen war, sodass ich damit keine komplette Jahresarbeit füllen konnte.
 Mir gefiel allerdings das Thema Smarthome/Homeautomation.
@@ -88,36 +94,44 @@ Diese potenzielle Sicherheitslücke hat man nicht, wenn man das ganze selbst ent
 
 % Wichtige Begriffe {{{1
 \section{Wichtige Begriffe}
-Da ich in meiner Jahresarbeit mit über komplexere Konzepte ist diese kurze Begriffserklärung notwendig.
+Da ich in meiner Jahresarbeit über komplexere Konzepte benutze ist diese kurze Begriffserklärung notwendig.
 
 % Was ist ein Server? {{{2
 \subsection{Was ist ein Server?}
 Der Begriff \enquote{\textbf{Server}} (englisch für \textit{Diener}) hat zwei Bedeutungen.
 Es gibt Hardware und Soft\-ware-Ser\-ver.
-Als \textbf{Soft\-ware-Ser\-ver} bezeichnet man ein Programm das einen speziellen Dienst anderen Programmen, sogenannten Clients (englisch für \textit{Kunden}), zur Verfügung stellt.
-Ein Webserver zum Beispiel stellt eine Internetseite ins Netz.~\cite[ver.][]{IonosServer}
+Als \textbf{Soft\-ware-Ser\-ver} bezeichnet man ein Programm, das einen speziellen Dienst anderen Programmen, sogenannten Clients (englisch für \textit{Kunden}), zur Verfügung stellt.
+Ein Webserver zum Beispiel, stellt eine Internetseite ins Netz.~\cite[ver.][]{IonosServer}
 
-Wenn die meisten Leute an einen Server denken, haben sie einen große Server Farm im Kopf.
+Wenn die meisten Leute an einen Server denken, haben sie eine große Serverfarm im Kopf.
 Doch ein Hard\-ware-Ser\-ver muss nicht unbedingt groß sein und viel Strom verbrauchen.
-Ein \textbf{Hard\-ware-Ser\-ver}, auch \textit{Host} genannt, definiert sich dadurch das auf ihm einer oder mehrere Soft\-ware-Ser\-ver laufen. Das heißt jeder Computer, jedes Smartphone kann ein Server sein.
-Selbst einen modernen Kühlschrank kann man heute zu tage als Server bezeichnen solange er eine Serversoftware benutzt um z.B. dir zu zeigen was du alles bei deinem nächsten Einkauf mitbringen musst.
+Ein \textbf{Hard\-ware-Ser\-ver}, auch \textit{Host} genannt, definiert sich dadurch dass auf ihm einer oder mehrere Soft\-ware-Ser\-ver laufen. Das heißt jeder Computer, jedes Smartphone kann ein Server sein.
+Selbst einen modernen Kühlschrank kann man heute zu Tage als Server bezeichnen solange er eine Serversoftware benutzt um z.B. zu zeigen, was man alles bei deinem nächsten Einkauf mitbringen musst.
 
 % Was ist eine API {{{2
 \subsection{Was ist eine API?}\label{sec:api}
 
-Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{An\-wen\-dungs\-pro\-gram\-mier Schnittstelle}}, ist eine Schnittstelle die es Programmen und Hardware ermöglicht mit einander zu kommunizieren.
+Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{An\-wen\-dungs\-pro\-gram\-mier Schnittstelle}}, ist eine Schnittstelle die es Programmen, und Hardware ermöglicht mit einander zu kommunizieren.
 Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\cite[][]{GSApi}
 
 % Es gibt viele veschidene Standarts eine API zu programmieren.
 
-In meiner Jahresarbeit werde ich vorallem über \textbf{Web-APIs} reden.
+In meiner Jahresarbeit habe ich vor allem \textbf{Web-APIs} benutzt.
 
 % Funktionsweise meiner Bienenstockwaage {{{1
 \section{Funktionsweise meiner Bienenstockwaage}
+% Basic Funktionsweise {{{2
 
-Eine Bienenstockwaage ist eigentlich recht simpel.
-Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen abständen speichert bzw.
+Eine Bienenstockwaage ist eigentlich recht einfach.
+Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen Abständen speichert bzw.
 mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
+
+Im Falle meiner Bienenstockwaage habe ich mir ein System überlegt, das gut skalierbar ist.
+Dieses System besteht aus mehreren Bestandteilen welche über verschiedene APIs mit einander kommunizieren.
+
+Das wichtigste Element davon ist der Hauptserver auf dem die Datenbank MongoDB und der Webserver laufen.
+Ich habe mir dafür einen Raspberry Pi 3B+ angeschafft, da ich alle Daten lokal speichern wollte.
+Das muss man aber nicht, da man sich auch über die Plattform \href{https://www.mongodb.com/cloud/atlas}{MongoDB Atlas} eine Datenbank mieten kann und mit Hilfe von \href{https://www.linode.com}{Linode} oder \href{https://www.digitalocean.com/}{Digital Ocean} den Webserver hosten kann.
 
 \begin{figure}[ht]
 	\centering
@@ -140,22 +154,75 @@ mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
 	\caption{Netzwerk Diagramm meines Serversystems\label{abb:networkdiagram}}
 \end{figure}
 
-Im Falle meiner Bienenstockwaage habe ich einen mir ein System überlegt, das gut skalierbar ist.
-Dieses System besteht aus mehreren Bestandteilen welche über verschiedene APIs mit einander kommunizieren.
+Der Hauptbestanntteil meines Systems ist ein Zentraler Webserver welcher zur komonication mit der Webseite und den Bienenstockwaagen eine REST-API zur verfügung stellt.
 
-Das wichtigste Element davon ist der Hauptserver auf dem die Datenbank MongoDB und der Webserver laufen.
-Ich habe mir dafür einen Raspberry Pi 3B+ angeschafft, da ich alle Daten lokal speichern wollte.
-Das muss man aber nicht, da mach sich auch über die Plattform \href{https://www.mongodb.com/cloud/atlas}{MongoDB Atlas} eine Datenbank mieten kann und mit Hilfe von \href{https://www.linode.com}{Linode} oder \href{https://www.digitalocean.com/}{Digital Ocean} den Webserver hosten kann.
+% Kommunikation {{{2
+\subsection[Kommunikation Waage --- Server --- DB]{Kommunikation Bienenstockwaage --- Server --- Datenbank}
 
-Der Webserver hat zwei wichtige Aufgaben:
-die Bereitstellung der Webseite und die Verwaltung der Daten.
+% Initialisierung {{{3
+\subsubsection[Initialisierung]{Initialisierung einer Bienenstockwaage}
+Die Beinenstockwaagen schicken an den Server zum Initialisieren eine \texttt{GET} Anfrage an die URL \texttt{/init/<name>}, wo \texttt{<name>} durch den individuellen Namen der Waage ersetzt wird.
+Der Server durchsucht darauf hin die Datenbank nach einem Dokument mit den Feld \texttt{name: <name>}.
+Wenn er ein Dokument findet, schickt er die \texttt{\_id} des Dokuments an die Bienenstockwaage zurück.
+Falls in der Datenbank jedoch kein Dokument mit dem Feld \texttt{name: <name>} enthalten ist,
+erstellt er ein Dokument mit folgenden Feldern: \texttt{name: <name>} und \texttt{data: []}\footnote{\texttt{[]} ist die notation für ein leeres Array in vielen Programmiersprachen}. Siehe Abbildung~\ref{abb:document}
+Anschließend sendet der Server die \texttt{\_id} des neu erstellten Dokuments zurück.
+Sobald die Waage die Antwort des Servers bekommen hat speichert sie diese im Arbeitsspeicher.
 
-In Abbildung~\ref{abb:networkdiagram} ist dieses da gestellt.
+\begin{figure}[H]
+\begin{minted}[tabsize=2]{json}
+{
+	"_id": ObjectID,
+	"name": "<name>",
+	"data": [
+		...,
+		{
+			"_id": ObjectID,
+			"weight": 3505,
+			"time": "2020-03-30T20:33:00.990+00:00"
+		},
+		...,
+	]
+}
+\end{minted}
+\caption{Dokument in Datenbank\label{abb:document}}
+\end{figure}
 
-Wenn man sich die Daten anschauen will, kann man dies über eine Webseite die mit Hilfe einer REST-API
-% \footnote{Was eine REST-API ist können sie in Abschnitt~\ref{sec:api} lesen.}
-mit dem Server verbunden ist.
+% Datenübertagung {{{3
+\subsubsection{Übertragung des Gewichts}
+Zum Übertragen der Gewichtsdaten macht die Waage eine \texttt{POST} Anfrage an die URL \texttt{/add}, an die das aktuelle Gewicht des Bienenstockes und die bei der Initialisierung erhaltene DokementID im \texttt{JSON} Format angeheftet sind. Siehe Abbildung~\ref{abb:/add}.
 
+\begin{figure}[ht]
+\centering
+\begin{minted}{http}
+POST /add HTTP/1.1
+User-Agent: PostmanRuntime/7.26.1
+Host: www.beinenserver.com
+Content-Type: application/json; charset=utf-8
+Content-Length: <length>
+Connection: Keep-Alive
+
+{
+	"_id": "5e8248aaf33b770d80370b68",
+	"weight": 1000
+}
+\end{minted}
+\caption{Beispiel einer \texttt{POST} Request auf \texttt{/add}}\label{abb:/add}
+\end{figure}
+
+%- server from db document with _id
+% server adds
+
+
+\begin{figure}[ht]
+\centering
+\begin{minted}{json}
+{
+	"time": 2020-03-30T20:33:00.990+00:00,
+	"weight": 1000
+}
+\end{minted}
+\end{figure}
 % Literaturverzeichnis {{{1
 \printbibliography{}
 \end{document}
