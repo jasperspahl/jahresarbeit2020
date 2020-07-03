@@ -213,15 +213,17 @@ Connection: Keep-Alive
 %- server from db document with _id
 % server adds
 
+Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mit der \texttt{\_id} aus der Anfrage aus der Datenbank und fügt ein neues Objekt mit dem Gewicht und der aktuellen Zeit (Abbildung~\ref{abb:objTimeWeight}) zum Dataarray des Dokumentes hinzu.
 
 \begin{figure}[ht]
 \centering
 \begin{minted}{json}
 {
-	"time": 2020-03-30T20:33:00.990+00:00,
+	"time": "2020-03-30T20:33:00.990+00:00",
 	"weight": 1000
 }
 \end{minted}
+\caption{Objekt mit Zeit und Gewicht in \texttt{JSON}\label{abb:objTimeWeight}}
 \end{figure}
 % Literaturverzeichnis {{{1
 \printbibliography{}
