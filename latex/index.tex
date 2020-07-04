@@ -5,7 +5,7 @@
 % 	[ ] Hosten definiren
 % Setup {{{1
 % Packages {{{2
-\usepackage[top=4cm, left=3.5cm, right=3.5cm, bottom=5cm]{geometry}
+%\usepackage[top=4cm, left=3.5cm, right=3.5cm, bottom=5cm]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{minted}
 \usepackage{babel}
@@ -17,10 +17,11 @@
 \usepackage{csquotes}
 \usepackage{xpatch}
 \usepackage[gen]{eurosym}
-\usepackage{mathptmx}
-\usepackage[scaled=0.9]{helvet}
-\usepackage{courier}
+%\usepackage{mathptmx}
+%\usepackage[scaled=0.9]{helvet}
+%\usepackage{courier}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[breaklinks=true]{hyperref}
 \usepackage{wrapfig}
 \usepackage[onehalfspacing]{setspace}
@@ -165,11 +166,11 @@ Die Beinenstockwaagen schicken an den Server zum Initialisieren eine \texttt{GET
 Der Server durchsucht darauf hin die Datenbank nach einem Dokument mit den Feld \texttt{name: <name>}.
 Wenn er ein Dokument findet, schickt er die \texttt{\_id} des Dokuments an die Bienenstockwaage zurück.
 Falls in der Datenbank jedoch kein Dokument mit dem Feld \texttt{name: <name>} enthalten ist,
-erstellt er ein Dokument mit folgenden Feldern: \texttt{name: <name>} und \texttt{data: []}\footnote{\texttt{[]} ist die notation für ein leeres Array in vielen Programmiersprachen}. Siehe Abbildung~\ref{abb:document}
+erstellt er ein Dokument mit folgenden Feldern: \texttt{name: <name>} und \texttt{data: []}\footnote{\texttt{[]} ist die notation für ein leeres Array in vielen Programmiersprachen}. Siehe Listing~\ref{lst:document}
 Anschließend sendet der Server die \texttt{\_id} des neu erstellten Dokuments zurück.
 Sobald die Waage die Antwort des Servers bekommen hat speichert sie diese im Arbeitsspeicher.
 
-\begin{figure}[H]
+\begin{listing}[H]
 \begin{minted}[tabsize=2]{json}
 {
 	"_id": ObjectID,
@@ -185,14 +186,13 @@ Sobald die Waage die Antwort des Servers bekommen hat speichert sie diese im Arb
 	]
 }
 \end{minted}
-\caption{Dokument in Datenbank\label{abb:document}}
-\end{figure}
+\caption{Dokument in Datenbank\label{lst:document}}
+\end{listing}
 
 % Datenübertagung {{{3
 \subsubsection{Übertragung des Gewichts}
-Zum Übertragen der Gewichtsdaten macht die Waage eine \texttt{POST} Anfrage an die URL \texttt{/add}, an die das aktuelle Gewicht des Bienenstockes und die bei der Initialisierung erhaltene DokementID im \texttt{JSON} Format angeheftet sind. Siehe Abbildung~\ref{abb:/add}.
-
-\begin{figure}[ht]
+Zum Übertragen der Gewichtsdaten macht die Waage eine \texttt{POST} Anfrage an die URL \texttt{/add}, an die das aktuelle Gewicht des Bienenstockes und die bei der Initialisierung erhaltene DokementID im \texttt{JSON} Format angeheftet sind. Siehe Listing~\ref{lst:/add}.
+\begin{listing}[ht]
 \centering
 \begin{minted}{http}
 POST /add HTTP/1.1
@@ -207,15 +207,11 @@ Connection: Keep-Alive
 	"weight": 1000
 }
 \end{minted}
-\caption{Beispiel einer \texttt{POST} Request auf \texttt{/add}}\label{abb:/add}
-\end{figure}
+\caption{Beispiel einer \texttt{POST} Request auf \texttt{/add}}\label{lst:/add}
+\end{listing}
 
-%- server from db document with _id
-% server adds
-
-Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mit der \texttt{\_id} aus der Anfrage aus der Datenbank und fügt ein neues Objekt mit dem Gewicht und der aktuellen Zeit (Abbildung~\ref{abb:objTimeWeight}) zum Dataarray des Dokumentes hinzu.
-
-\begin{figure}[ht]
+Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mit der \texttt{\_id} aus der Anfrage aus der Datenbank und fügt ein neues Objekt mit dem Gewicht und der aktuellen Zeit (Listing~\ref{lst:objTimeWeight}) zum Dataarray des Dokumentes hinzu.
+\begin{listing}[ht]
 \centering
 \begin{minted}{json}
 {
@@ -223,8 +219,10 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 	"weight": 1000
 }
 \end{minted}
-\caption{Objekt mit Zeit und Gewicht in \texttt{JSON}\label{abb:objTimeWeight}}
-\end{figure}
+\caption{Objekt mit Zeit und Gewicht in \texttt{JSON}\label{lst:objTimeWeight}}
+\end{listing}
+
 % Literaturverzeichnis {{{1
+\clearpage{}
 \printbibliography{}
 \end{document}
