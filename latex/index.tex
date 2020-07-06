@@ -5,7 +5,7 @@
 % 	[ ] Hosten definiren
 % Setup {{{1
 % Packages {{{2
-\usepackage[top=4cm, left=3.5cm, right=2.5cm, bottom=4.5cm]{geometry}
+%\usepackage[top=4cm, left=3.5cm, right=2.5cm, bottom=4.5cm]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{minted}
 \usepackage{babel}
@@ -119,6 +119,74 @@ Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden se
 % Es gibt viele veschidene Standarts eine API zu programmieren.
 
 In meiner Jahresarbeit habe ich vor allem \textbf{Web-APIs} benutzt.
+
+% Was ist eine Programmiersprache {{{2
+\subsection{Was ist eine Programmiersprache?}
+
+Mit Hilfe von Programmiersprachen kann man einem PC sagen was er tun soll.
+Die ersten Programmiersprachen wurden entwickelt um nicht alle Programme in Assembler\footnote{Die Befehle welche die CPU versteht} zu programmieren.
+Es gibt viele verschiedene Programmiersprache die sich vor allem in vier Eigenschaften unterscheiden:
+
+\begin{description}
+	\item[Syntax] Wie werden Variablen definiert? Benutzt die Sprache viele Klammern oder Indentierung? Siehe Abbindung~\ref{abb:syntax}
+	\item[Statische und Dynamische Typisierung] Muss man angeben welchen Type eine Variable hat?
+	\item[Kompiliert vs Interpretiert] Wird der Quelltext zu einem binären Programm umgewandelt oder wird er mit einem sogenannten \textit{JIT-Compiler}\footnote{Just-in-time-Compiler} ausgeführt?
+	\item[Höhe einer Programmiersprache] Die höhe einer Programmiersprache sagt aus wie nah sie an der Maschienensprache ist. Die Programmiersprache \emph{Python} zum Beispiel ist eine höhere Programmiersprache das bedeutet sie ist relative einfach zu programmieren. Sie wird eher für Automatisierungen benutzt. \emph{C} oder \emph{C++} hingengen sind sogenannte \emph{low level} Programmiersprachen. Diese Sprachen sind meist sehr schnell und werden vorallem zur Betriebssystemen und anderen hardwarenahen Anwendungen benutzt.
+\end{description}
+
+% abb:syntax {{{3
+\begin{figure}[ht]
+\begin{minipage}{0.5\textwidth}
+\textbf{Python}
+\begin{minted}[tabsize=4]{python}
+def add(x, y):
+	return x+y
+print(add(1+2))
+\end{minted}
+
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\textbf{Rust}
+\begin{minted}[tabsize=4]{rust}
+fn add(&x: i32, &y: i32) -> i32 {
+	x+y
+}
+println!("{}", add(1,2));
+\end{minted}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+
+\textbf{C++}
+
+\begin{minted}[tabsize=4]{cpp}
+int add(int x, int y) {
+	return x + y;
+}
+int sum = add(1, 2);
+std::cout << sum;
+\end{minted}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\textbf{Javascript}
+\begin{minted}[tabsize=4]{javascript}
+function add(x, y) {
+	return x + y;
+}
+console.log(add(1,2));
+\end{minted}
+\end{minipage}
+
+\caption{Syntax-Unterschiede in verschiedenen Programmiersprachen\label{abb:syntax}}
+\end{figure}
+% }}}
+
+% Was ist Javascript {{{2
+\subsection{Was ist Javascript?}
+
+Javascript ist eine Programmiersprache die dafür entwickelt wurde um Webseiten interaktiv zu gestalten.
+Sie ist sehr einfach zu lernen, ist allerdings im Vergleich zu anderen Programmiersprachen ziemlich langsam.
+In Javascript muss man nicht festlegen welchen Typ eine Variable hat.
+Das ist zum schnellen programmieren zwar sehr gut, wird aber bei größeren Projekten zum Problem da man Fehler nicht so schnell findet.
 
 % Funktionsweise meiner Bienenstockwaage {{{1
 \section{Funktionsweise meiner Bienenstockwaage}
@@ -256,6 +324,10 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 \caption{Objekt mit Zeit und Gewicht in \texttt{JSON}\label{lst:objTimeWeight}}
 \end{listing}
 
+% Erfahtungen bei der Praxis{{{1
+\section{Praktischer Teil}
+
+Beim überlegen wie ich mein Serversystem auf baue, welche Technologien ich benutzt war mir ziemlich schnell klar das ich so viel wie möglich in Javascript programmieren will.
 
 
 % Literaturverzeichnis {{{1
