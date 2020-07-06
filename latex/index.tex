@@ -1,11 +1,11 @@
-\documentclass[a4paper, ngerman,12pt]{scrartcl}
+\documentclass[a4paper, ngerman, 12pt]{scrartcl}
 \usepackage[backend=biber]{biblatex}
 % shell-escape
 % TODO: [ ] Was ist eine REST-API
 % 	[ ] Hosten definiren
 % Setup {{{1
 % Packages {{{2
-%\usepackage[top=4cm, left=3.5cm, right=3.5cm, bottom=5cm]{geometry}
+\usepackage[top=4cm, left=3.5cm, right=2.5cm, bottom=4.5cm]{geometry}
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{minted}
 \usepackage{babel}
@@ -14,6 +14,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
 \usepackage{tikz}
+\usepackage[RPvoltages]{circuitikz}
 \usepackage{csquotes}
 \usepackage{xpatch}
 \usepackage[gen]{eurosym}
@@ -157,6 +158,39 @@ Das muss man aber nicht, da man sich auch über die Plattform \href{https://www.
 
 Der Hauptbestanntteil meines Systems ist ein Zentraler Webserver welcher zur komonication mit der Webseite und den Bienenstockwaagen eine REST-API zur verfügung stellt.
 
+% Die Waage {{{2
+\subsection{Die Waage}
+
+Die Bienenstockwaage funktioniert wie eine gewöhnliche Waage, welche man in dem meisten Haushalten findet.
+Um zu verstehen, wie eine gewöhnliche Waage funktioniert muss man verstehen, wie eine Wägezelle funktioniert.
+
+\begin{quote}
+	\enquote{Wägezellen sind eine Sonderform der Kraftaufnehmer (Kraftsensoren) zum Aufbau von Wägevorrichtungen, d.h.\ zum Verwiegen mit Waagen.}~\cite[vgl.][]{WikiWaegezelle}
+\end{quote}
+
+\begin{wrapfigure}{l}{7cm}
+	\centering
+	\begin{circuitikz}[european]
+		\draw (0, 4) to[battery1] (0,0) -- (3,0) to[R] (1,2) to[R] (3,4) to[R] (5,2) to[R] (3,0);
+		\draw (0,4) -- (3,4);
+		\draw (1,2) to[short, -*] (2,2) node[right]{$V_0$};
+		\draw (5,2) to[short, -*] (4,2) node[left]{$V_1$};
+	\end{circuitikz}
+	\caption{Schaltung der Wägezellen\label{abb:circuit}}
+
+\end{wrapfigure}
+
+Sie besteht aus einem Federkörper\footnote{Metallstück welches etwas flexibel ist}, auf dem ein Dehnungsmessstreifen\footnote{Im folgenden als DMS abgekürzt} fixiert ist.
+Dieser DMS verändert je nach Dehnung seinen elektrischen Widerstand.
+Wegen dieser Eingenschaft bekommt man,
+wenn man mehrere Wägezellen wie in Abbildung~\ref{abb:circuit} gezeigt verkabelt und den Spannungsunterschied zwischen $V_0$ und $V_1$ misst,
+einen Spannungsunsterschied der in Relation zu dem Gewicht auf den Wägezellen ist.
+
+Der Spannungsunterschied wird nun von einem Digital- zu A\-na\-log-Um\-wandler in ein digitales Signal umgewandelt welches mit Hilfe eines Mikrokontrolers weiter verarbeitet werden kann.
+Bei einer gewöhnlichen Waage wird der Wert meist mit einer Konstante multipliziert damit der Wert einer Masseinheit($kg$) entspricht. Dieser wird auf einem Bildschirm dargestellt.
+
+Im Falle meiner Waage wird der wird der Wert an den Server übermittelt.
+
 % Kommunikation {{{2
 \subsection[Kommunikation Waage --- Server --- DB]{Kommunikation Bienenstockwaage --- Server --- Datenbank}
 
@@ -221,6 +255,8 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 \end{minted}
 \caption{Objekt mit Zeit und Gewicht in \texttt{JSON}\label{lst:objTimeWeight}}
 \end{listing}
+
+
 
 % Literaturverzeichnis {{{1
 \clearpage{}
