@@ -3,6 +3,9 @@
 % shell-escape
 % TODO: [ ] Was ist eine REST-API
 % 	[ ] Hosten definiren
+%	[x] Database erklären (sql vs. noSql)
+%       [ ] JSON Erklären
+%       [ ] Mikrokontroler
 % Setup {{{1
 % Packages {{{2
 %\usepackage[top=4cm, left=3.5cm, right=2.5cm, bottom=4.5cm]{geometry}
@@ -58,6 +61,7 @@
 \vfill
 \line(1,0){400}\\[1mm]
 \huge{\textbf{Der Smarte Bienenstock}}\\[3mm]
+\large{Entwiklung eines Serversystems für eine Bienenstockwaage}\\[3mm]
 \Large{\textbf{- 12 Kss -}}\\
 \line(1,0){400}\\
 \vfill
@@ -183,11 +187,46 @@ console.log(add(1,2));
 % Was ist Javascript {{{2
 \subsection{Was ist Javascript?}
 
-Javascript ist eine Programmiersprache die dafür entwickelt wurde um Webseiten interaktiv zu gestalten.
+Javascript\footnote{abgekürzt als JS} ist eine Programmiersprache die dafür entwickelt wurde um Webseiten interaktiv zu gestalten.
 Sie ist sehr einfach zu lernen, ist allerdings im Vergleich zu anderen Programmiersprachen ziemlich langsam.
-In Javascript muss man nicht festlegen welchen Typ eine Variable hat.
+Javascript ist eine dynamische Programmiersprache das heißt man muss den Variablen keinen bestimmten Type zuordnen.
 Das ist zum schnellen programmieren zwar sehr gut, wird aber bei größeren Projekten zum Problem da man Fehler nicht so schnell findet.
 
+% Datenbank {{{2
+\subsection[Wo ist Datenbank? (Sql vs NoSql)]{Was ist eine Datenbank? Welche unterschiede gibt es?}
+
+Eine Datenbank\footnote{abgekürzt als DB} ist ein Verwaltungssystem das große Mengen an Daten langfristig abspeichern und schnell wieder aufrufen kann.
+Es gibt zwei unterschieliche Arten von Datenbanken. Die sogennaten \emph{SQL}- und \emph{NoSQL}-DBs.
+
+\begin{description}
+	\item[SQL-Datenbank] SQL steht für \enquote{\emph{Structured Query Language}}\footnote{dt: Struckturiere Abfrage Sprache}.
+		SQL ist eine Sprache zum durchsuchen und endern des Inhaltes einer Datenbank.
+		DBs die diese Sprache zur Verwaltung der Daten benutzen, speichern ihre Daten meist in speziellen Schemata z.B. Tabellen.
+		Diese Tabellen haben meist verknüpfungen untereinander weswegen sie auch \enquote{relational} DBs genannt werde.
+		Häufig genutzte Datenbanken sind MySQL, MariaDB und Postgres.
+	\item[NoSQL-Datenbanken] Wie im Namen implementiert, benuzten diese DBs nicht SQL, sondern sie speichern ihre Daten in Dokumenten ab. Siehe Listing~\ref{lst:document}.
+		Durch die nutzung von Dokumenten statt Schemata sind die Datenbanken flexibler.
+		Sie benötigen dadurch allerdings eine komplexere Logik in der Anwendung.
+\end{description}
+
+\begin{listing}[H]
+\begin{minted}[tabsize=2]{json}
+{
+	"_id": ObjectID,
+	"name": "<name>",
+	"data": [
+		...,
+		{
+			"_id": ObjectID,
+			"weight": 3505,
+			"time": "2020-03-30T20:33:00.990+00:00"
+		},
+		...,
+	]
+}
+\end{minted}
+\caption{Dokument in Datenbank\label{lst:document}}
+\end{listing}
 % Funktionsweise meiner Bienenstockwaage {{{1
 \section{Funktionsweise meiner Bienenstockwaage}
 % Basic Funktionsweise {{{2
@@ -272,24 +311,6 @@ erstellt er ein Dokument mit folgenden Feldern: \texttt{name: <name>} und \textt
 Anschließend sendet der Server die \texttt{\_id} des neu erstellten Dokuments zurück.
 Sobald die Waage die Antwort des Servers bekommen hat speichert sie diese im Arbeitsspeicher.
 
-\begin{listing}[H]
-\begin{minted}[tabsize=2]{json}
-{
-	"_id": ObjectID,
-	"name": "<name>",
-	"data": [
-		...,
-		{
-			"_id": ObjectID,
-			"weight": 3505,
-			"time": "2020-03-30T20:33:00.990+00:00"
-		},
-		...,
-	]
-}
-\end{minted}
-\caption{Dokument in Datenbank\label{lst:document}}
-\end{listing}
 
 % Datenübertagung {{{3
 \subsubsection{Übertragung des Gewichts}
@@ -327,7 +348,13 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 % Erfahtungen bei der Praxis{{{1
 \section{Praktischer Teil}
 
-Beim überlegen wie ich mein Serversystem auf baue, welche Technologien ich benutzt war mir ziemlich schnell klar das ich so viel wie möglich in Javascript programmieren will.
+Beim überlegen, wie ich mein Serversystem aufbaue und welche Technologien ich benutzten werde, war mir schnell klar, dass ich hauptsächlich in Javascript programmieren will, da ich dadurch die Webseite und den Server in der gleichen Sprache programmieren kann.
+
+Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Biblioteken gibt. 
+
+Für die Programmierung des Mikrokontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
+noch keine stabile Implementierung für den ESP32\footnote{Mikrokontroller der ein intigriertes WLAN Modul hat.} gab.
+
 
 
 % Literaturverzeichnis {{{1
