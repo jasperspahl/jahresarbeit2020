@@ -45,6 +45,9 @@
 \setlength{\parskip}{1em}
 \renewcommand{\baselinestretch}{1.1}
 % }}}
+% Makro {{{2
+\newcommand{\js}[1]{\mintinline{javascript}{#1}}
+% }}}
 \author{Jasper Levin Spahl}
 % Tikz Setup {{{2
 \usetikzlibrary{shapes.geometric, arrows.meta}
@@ -61,7 +64,7 @@
 \vfill
 \line(1,0){400}\\[1mm]
 \huge{\textbf{Der Smarte Bienenstock}}\\[3mm]
-\large{Entwiklung eines Serversystems für eine Bienenstockwaage}\\[3mm]
+\large{Entwicklung eines Serversystems für eine Bienenstockwaage}\\[3mm]
 \Large{\textbf{- 12 Kss -}}\\
 \line(1,0){400}\\
 \vfill
@@ -349,14 +352,111 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 \section{Praktischer Teil}
 
 Beim überlegen, wie ich mein Serversystem aufbaue und welche Technologien ich benutzten werde, war mir schnell klar, dass ich hauptsächlich in Javascript programmieren will, da ich dadurch die Webseite und den Server in der gleichen Sprache programmieren kann.
+Damit ich den Server in JS programmieren kann, benutze ich die NodeJS-Umgebung, die mir es ermöglicht, Javascript code von einem Terminal auszuführen.
 
 Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Biblioteken gibt. 
 
 Für die Programmierung des Mikrokontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
 noch keine stabile Implementierung für den ESP32\footnote{Mikrokontroller der ein intigriertes WLAN Modul hat.} gab.
 
+% Server {{{1
+\section{Programmierung}
+
+\subsection{Initialisierung des Projektes} % {{{2
+
+Ein neues NodeJS Projekt erstellt man mit dem Befehl \texttt{\$ yarn init}.
+Mit diesem Befehl generiert die \texttt{package.json} Datei.
+Sie enthält alle Informationen über das Projekt. Siehe Listing~\ref{lst:package}
 
 
+\begin{listing}[ht]
+\centering
+\begin{minted}[tabsize=4]{json}
+{
+	"name": "server",
+	"version": "0.1.0",
+	"main": "index.js",
+	"author": "Jasper Spahl <jasperspahl@web.de>",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"mongoose": "^5.9.5"
+
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"nodemon": "^2.0.2"
+	}
+}
+\end{minted}
+\caption{Beispiel einer \texttt{package.json}\label{lst:package}}
+\end{listing}
+
+Nach dem erstellen dieser Datei kann man mit dem Befehl \mintinline{sh}{yarn add <bibliothek>} und \mintinline{sh}{yarn add <bibliothek> --dev} Biblioteken dem projekt hinzufügen, wobei \mintinline{sh}{--dev} die Bibliothek als Entwicklungsabhänigkeit (devdependencie) hinzufügt.
+
+In meiner Jahresarbeit benutze ich die folgenden Biblioteken: 
+
+\begin{description}
+	\item[dotenv] initialisiert Umgebungsvariablen, die Informationen wie Datenbankpasswörter und andere Konfigurationen enthalten.
+	\item[express] ist ein einfaches Framework zur Erstellung von Webservern.
+	\item[mongoose] ist eine Bibliothek, die die Integration von MongoDB erleichtert.
+\end{description}
+
+Zum Entwickeln des Server habe ich zusetzlich \texttt{nodemon} und \texttt{eslint} als Entwicklungsabhänigkeit meinem Projekt hinzugefügt.
+
+\begin{description}
+	\item[nodemon] beobachtet meinen Source-Code und stattet den Server neu sobald man etwas im Quelltext endert.
+	\item[eslint] zeigt Syntaxfehler beim entwickelt an.
+\end{description}
+
+Des weiteren kann man in der \texttt{package.json} eigene scripte hizufügen z.B. zum Starten des Server oder einer Entwiklungsumgebung.
+
+\subsection{Initialisierung des Webservers} % {{{2
+
+Bei der Initialiesierung des Webservers bin ich dem Guide auf der ExpressJS Webseite gefolgt.\footfullcite{Expressjs}
+
+Als erstess muss man Express importiren. In Javascript geht das mit dem \js{require()} Befehl.
+Wenn man Express importiert hat erstellt man einen neuern Server in dem man die importierte Funktion ausführt und das Ergebnis in einer Variable speichert.
+Um eine neue Route hinzuzufügen benutzt man die Funktion \js{server.get(route, fn(req, res))}
+Der erste Parameter der Funktion ist eine Adresse. Der Zweite ist eine Funktion die Steuert was auf der Route Geschehen soll.
+Um den Server nun zu Staten benutzt man die Funktion \js{server.listen(port, callback)}.
+Siehe Listing~\ref{lst:initserver}.
+
+\begin{listing}[hb]
+\centering
+\begin{minted}[tabsize=4]{javascript}
+const express = require("express");
+const server = express();
+
+server.get("/", (req, res)=>res.send("Server is Working"));
+
+server.listen(3000, () => console.log("Server listening on port 3000"));
+\end{minted}
+\caption{Initialisierung der Servers in der Datei \texttt{index.js}\label{lst:initserver}}
+\end{listing}
+
+
+\subsection{Konfiguration der Umgebung} % {{{2
+
+Bevor ich die Datenbank eingebunden habe, muste ich einige Umgebungsvariablen festlegen.
+Dafür benutzt man eine versteckte Datei mit dem Namen \texttt{.env}.
+\begin{listing}[hb]
+\centering	
+\begin{minted}{sh}
+PORT=3000
+DATABASE_URI="mongodb://localhost/bees"
+PUBLICDIR="./exampleFrontend"
+\end{minted}
+\caption{Beispiel \texttt{.env}}\label{lst:dotenv}
+\end{listing}
+
+Um die Umgebungsvariablen im Programm zu benutzen, muss man die Funktion \js{require("dotenv").config()} ausführen.
+Die Variablen werden daraufhin im Objekt \js{process.env} gespeichert.
+Um also den Port auf dem der Server läuft per Umgebungsvariablen zu bestimmen, muss man in \js{server.listen} den fest eingebundenen Wert mit \js{process.env.PORT} erstetzen.
 % Literaturverzeichnis {{{1
 \clearpage{}
 \printbibliography{}
