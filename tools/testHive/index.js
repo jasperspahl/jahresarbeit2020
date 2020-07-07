@@ -26,7 +26,7 @@ function start(url, name){
 	fetch(`${url}/init/${name}`).then(res => res.json()).then(res => {
 		console.log(res);
 		id = res._id;
-		setInterval(sendData, 60000);
+		setInterval(sendData, 1000);
 	});
 }
 
