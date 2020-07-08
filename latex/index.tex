@@ -1,11 +1,11 @@
 \documentclass[a4paper, ngerman, 12pt]{scrartcl}
-\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber, style=verbose-trad2]{biblatex}
 % shell-escape
 % TODO: [ ] Was ist eine REST-API
-% 	[ ] Hosten definiren
+%	[ ] Hosten definiren
 %	[x] Database erklären (sql vs. noSql)
-%       [ ] JSON Erklären
-%       [ ] Mikrokontroler
+%	[ ] JSON Erklären
+%	[ ] Mikrokontroler
 % Setup {{{1
 % Packages {{{2
 %\usepackage[top=4cm, left=3.5cm, right=2.5cm, bottom=4.5cm]{geometry}
@@ -95,7 +95,7 @@ Diese Waagen kosten zwischen 800 und 3000 \euro{}, sind somit viel zu überteuer
 
 Wenn man jedoch eine billigere Version haben will muss man sie sich selbst bauen.
 Es gibt zwar, wie ich später herausfand, eine relative einfache Bauanleitung für ein solches System.
-~\cite{Honeypi}
+~\autocite{Honeypi}
 Allerdings benötigt dieses System einen Anschluss an eine Cloud, dessen Source Code nicht offen ist.
 Das heißt die Daten werden an irgendeinen Server übermittelt der sie dann speichert.
 Man weiß also nicht er alles auf die Daten zugreifen kann.
@@ -110,7 +110,7 @@ Da ich in meiner Jahresarbeit über komplexere Konzepte benutze ist diese kurze 
 Der Begriff \enquote{\textbf{Server}} (englisch für \textit{Diener}) hat zwei Bedeutungen.
 Es gibt Hardware und Soft\-ware-Ser\-ver.
 Als \textbf{Soft\-ware-Ser\-ver} bezeichnet man ein Programm, das einen speziellen Dienst anderen Programmen, sogenannten Clients (englisch für \textit{Kunden}), zur Verfügung stellt.
-Ein Webserver zum Beispiel, stellt eine Internetseite ins Netz.~\cite[ver.][]{IonosServer}
+Ein Webserver zum Beispiel, stellt eine Internetseite ins Netz.~\autocite[ver.][]{IonosServer}
 
 Wenn die meisten Leute an einen Server denken, haben sie eine große Serverfarm im Kopf.
 Doch ein Hard\-ware-Ser\-ver muss nicht unbedingt groß sein und viel Strom verbrauchen.
@@ -121,7 +121,7 @@ Selbst einen modernen Kühlschrank kann man heute zu Tage als Server bezeichnen 
 \subsection{Was ist eine API?}\label{sec:api}
 
 Eine \textbf{API}, kurz für \enquote{\textbf{Application Programming Interface}}\footnote{englisch für \textit{An\-wen\-dungs\-pro\-gram\-mier Schnittstelle}}, ist eine Schnittstelle die es Programmen, und Hardware ermöglicht mit einander zu kommunizieren.
-Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\cite[][]{GSApi}
+Eine API kann von Anwendungsbereich zu Anwendungsbereich komplett verschieden sein.~\autocite[][]{GSApi}
 
 % Es gibt viele veschidene Standarts eine API zu programmieren.
 
@@ -275,7 +275,7 @@ Die Bienenstockwaage funktioniert wie eine gewöhnliche Waage, welche man in dem
 Um zu verstehen, wie eine gewöhnliche Waage funktioniert muss man verstehen, wie eine Wägezelle funktioniert.
 
 \begin{quote}
-	\enquote{Wägezellen sind eine Sonderform der Kraftaufnehmer (Kraftsensoren) zum Aufbau von Wägevorrichtungen, d.h.\ zum Verwiegen mit Waagen.}~\cite[vgl.][]{WikiWaegezelle}
+	\enquote{Wägezellen sind eine Sonderform der Kraftaufnehmer (Kraftsensoren) zum Aufbau von Wägevorrichtungen, d.h.\ zum Verwiegen mit Waagen.}~\autocite[vgl.][]{WikiWaegezelle}
 \end{quote}
 
 \begin{wrapfigure}{l}{7cm}
@@ -354,7 +354,7 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 Beim überlegen, wie ich mein Serversystem aufbaue und welche Technologien ich benutzten werde, war mir schnell klar, dass ich hauptsächlich in Javascript programmieren will, da ich dadurch die Webseite und den Server in der gleichen Sprache programmieren kann.
 Damit ich den Server in JS programmieren kann, benutze ich die NodeJS-Umgebung, die mir es ermöglicht, Javascript code von einem Terminal auszuführen.
 
-Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Biblioteken gibt. 
+Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Biblioteken gibt.
 
 Für die Programmierung des Mikrokontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
 noch keine stabile Implementierung für den ESP32\footnote{Mikrokontroller der ein intigriertes WLAN Modul hat.} gab.
@@ -398,7 +398,7 @@ Sie enthält alle Informationen über das Projekt. Siehe Listing~\ref{lst:packag
 
 Nach dem erstellen dieser Datei kann man mit dem Befehl \mintinline{sh}{yarn add <bibliothek>} und \mintinline{sh}{yarn add <bibliothek> --dev} Biblioteken dem projekt hinzufügen, wobei \mintinline{sh}{--dev} die Bibliothek als Entwicklungsabhänigkeit (devdependencie) hinzufügt.
 
-In meiner Jahresarbeit benutze ich die folgenden Biblioteken: 
+In meiner Jahresarbeit benutze ich die folgenden Biblioteken:
 
 \begin{description}
 	\item[dotenv] initialisiert Umgebungsvariablen, die Informationen wie Datenbankpasswörter und andere Konfigurationen enthalten.
@@ -417,7 +417,7 @@ Des weiteren kann man in der \texttt{package.json} eigene scripte hizufügen z.B
 
 \subsection{Initialisierung des Webservers} % {{{2
 
-Bei der Initialiesierung des Webservers bin ich dem Guide auf der ExpressJS Webseite gefolgt.\footfullcite{Expressjs}
+Bei der Initialiesierung des Webservers bin ich dem Guide auf der ExpressJS Webseite gefolgt.\autocite{Expressjs}
 
 Als erstess muss man Express importiren. In Javascript geht das mit dem \js{require()} Befehl.
 Wenn man Express importiert hat erstellt man einen neuern Server in dem man die importierte Funktion ausführt und das Ergebnis in einer Variable speichert.
@@ -445,7 +445,7 @@ server.listen(3000, () => console.log("Server listening on port 3000"));
 Bevor ich die Datenbank eingebunden habe, muste ich einige Umgebungsvariablen festlegen.
 Dafür benutzt man eine versteckte Datei mit dem Namen \texttt{.env}.
 \begin{listing}[hb]
-\centering	
+\centering
 \begin{minted}{sh}
 PORT=3000
 DATABASE_URI="mongodb://localhost/bees"
@@ -456,8 +456,31 @@ PUBLICDIR="./exampleFrontend"
 
 Um die Umgebungsvariablen im Programm zu benutzen, muss man die Funktion \js{require("dotenv").config()} ausführen.
 Die Variablen werden daraufhin im Objekt \js{process.env} gespeichert.
-Um also den Port auf dem der Server läuft per Umgebungsvariablen zu bestimmen, muss man in \js{server.listen} den fest eingebundenen Wert mit \js{process.env.PORT} erstetzen.
+Um also den Port, auf dem der Server läuft, per Umgebungsvariablen zu bestimmen, muss man in \js{server.listen} den für \texttt{port} fest eingebundenen Wert mit \js{process.env.PORT} erstetzen.
+
+Die zweite Variable in Listing~\ref{lst:dotenv} ist für die Datenbank da.
+Sie enthält eine URI mit den Informationen zur Verbindung mit der Datenbank.
+Sie ist wie folgt formatiert: \texttt{mongodb://<benutzer>:<password>@<adresse>/<datenbank>}.
+Da ich die Datenbank und den Server auf dem gleichen Gerät laufen habe, und der Port der Datenbank nicht von ausserhalb des Gerätes zugänglich ist, brauche ich die Adresse (\texttt{localhost}\footnote{localhost bezieht sich immer auf die IP-Adresse des aktuellen Gerätes (127.0.0.1) }) und die Datenbank (\texttt{bees}).
+
+Die dritte der Umgebungsvariablen bestimmt den Ortner auf dem Gerät, wo die Dateien für die Webseite gespeichert sind.
+Um die Webseite zu hosten, habe ich zunächst kontroliert, ob ein Pfad in der Variable \texttt{PUBLICDIR} angegeben ist. Im Falle eines Pfades hoste ich die Webseite. Siehe Listing~\ref{lst:pubdir}
+\begin{listing}[hb]
+\centering
+\begin{minted}{javascript}
+const publicDir = false || process.env.PUBLICDIR;
+
+if (publicDir) {
+	server.use(express.static(publicDir));
+} else {
+	console.log("No PUBLICDIR defined in .env");
+}
+\end{minted}
+\caption{Hosten der Webseite\label{lst:pubdir}}
+\end{listing}
 % Literaturverzeichnis {{{1
 \clearpage{}
-\printbibliography{}
+\printbibheading{}
+\printbibliography[type=book,heading=subbibliography,title={Buch Quellen}]
+\printbibliography[type=misc,heading=subbibliography,title={Internet Quellen}]
 \end{document}
