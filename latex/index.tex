@@ -32,6 +32,9 @@
 \setmainfont{URW Bookman}
 \setsansfont{Fira Sans}
 % Minted {{{2
+\renewcommand{\theFancyVerbLine}{\sffamily
+\textcolor[rgb]{0.5,0.5,1.0}{\scriptsize
+\oldstylenums{\arabic{FancyVerbLine}} }}
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
 %\usemintedstyle{solarized-dark}
 % Heading {{{2
@@ -77,12 +80,12 @@ Klasse: 12Kss\\
 \end{titlepage}
 
 % Table of contents {{{2
+\setcounter{page}{1}
 \tableofcontents
 \listoffigures
 \listoflistings{}
-\thispagestyle{empty}
+%\thispagestyle{empty}
 \clearpage
-\setcounter{page}{1}
 
 % Einleitung {{{1
 \section{Einleitung}
@@ -362,9 +365,6 @@ Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in 
 Für die Programmierung des Mikrokontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
 noch keine stabile Implementierung für den ESP32\footnote{Mikrokontroller der ein intigriertes WLAN Modul hat.} gab.
 
-% Server {{{1
-\section{Programmierung}
-
 \subsection{Initialisierung des Projektes} % {{{2
 
 Ein neues NodeJS Projekt erstellt man mit dem Befehl \texttt{\$ yarn init}.
@@ -533,7 +533,7 @@ Mit dem Schema kann man eine Collection in der Datenbank erstellen, welche die D
 
 Wie in Abschnitt~\autoref{sec:function} erwähnt benutze ich zur Kommunikation mit den Waagen und der Webseite eine REST-API.\@ Um diese zu programmieren, musste ich für jede Route eine Funktion erstellen, welche die Anfragen verarbeitet. Eine dieser Funktionen ist in Listing~\ref{lst:route/add}. Da alle Routes ziemlich aufgebaut sind werde ich nur eine in meiner Jahresarbeit erklären. Die Route welche ich dafür ausgewählt habe ist dazu da eingehende Daten in der DB abzuspeichern. 
 \begin{listing}[ht]
-\begin{minted}{javascript}
+\begin{minted}[fontsize=\footnotesize,linenos]{javascript}
 app.post("/add", (req, res) => {
   if (req.body._id && req.body.weight) {
     console.log(`New entry from ${req.body._id}: ${req.body.weight}`);
@@ -545,9 +545,8 @@ app.post("/add", (req, res) => {
         if (!doc) {
           res.status(404).send();
         }
-          doc.data.push({ time: Date.now(), weight: req.body.weight });
-          //console.log(doc);
-            doc.save((err, doc) => {
+        doc.data.push({ time: Date.now(), weight: req.body.weight });
+        doc.save((err, doc) => {
           if (err) {
             console.log("ERROR @ POST/add : " + err);
             res.status(500).send();
@@ -563,6 +562,18 @@ app.post("/add", (req, res) => {
 \caption{Route /add}\label{lst:route/add}
 \end{listing}
 
+Jede Funktion, welche Anfragen auf eine Route bearbeitet, bekommt zwei Parameter: Der erste \js{(req)} enthält alle Angeben der Anfrage. Der zweite \js{(res)} alle Funktionen die für die Antwort benörigt werden.
+
+Das erste was in der Funktion passiert ist dass getestet wird ob in der Anfrage alle Daten die enthalten sein sollen, mitgeliefert sind (Listing~\autoref{lst:route/add}~Linie~2).
+Falls dies nicht der Fall ist sendet der Server den HTTP Statuscode 404\footnote{404: nicht gefunden} (l.24).
+Wenn jedoch die alle Daten angegeben sind durchsucht er die Datenbank nach einem Dokument mit der angegebenen \js{_id} (L.4).
+Die Funktion welche zum Durchsuchen der Datenbank benutzt wird bekommt außer der \js{_id} eine sogenannte \emph{\enquote{Callback-Funktion}} welche ausgeführt wird sobald die Datenbank durchsucht wurde.
+Diese Callback-Funktion bekommt von der Datenbank zwei Parameter: Einen Error \js{(err)} welcher leer bleibt wenn es keine Fehler gibt und das Dokument welches leer bleibt, falls keins existiert. 
+Falls die Callback-Funktion einen Error erhält sendet sie eine leere Antwort mit dem Statuscode \texttt{500}, welcher einen internen Serverfehler implizit (L.5ff). Falls das nicht der Fall ist, wird überprüft ob ein Dokument existiert. Kein Dokument $\Rightarrow$ \texttt{404} (L.9ff). Bei gefundenem Dokument wird, ein neues Objekt mit dem aktuellen Zeitpunkt (\js{Date.now()}) und dem Gewicht, dem Dataarray des Dokumentes hinzufügt (L.12). Wenn das erfolgreich geschieht wird das Objekt in der Antwort zurück gesendet(L.19). Sonst \texttt{500} (L.17).
+
+\subsection[Tests]{Hilfsprogramme zum Testen des Systems} % {{{2
+
+Damit ich den Server während der Programmierung testen konnte, ohne die Bienenstockwaagen fertig gestellt zu haben. Habe ich ein Programm geschrieben das den Output einer Waage simuliert. Im gegensatz zur Fertigen Waage sendet das Programm in viel geringeren Abständen Werte, welche das schnellere auffinden von Fehlern im System erleichtert.
 % Literaturverzeichnis {{{1
 \clearpage{}
 \printbibheading{}
