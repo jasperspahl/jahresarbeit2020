@@ -370,18 +370,18 @@ Sobald der Server die Daten der Waage bekommen hat, holt er sich das Dokument mi
 % Erfahtungen bei der Praxis{{{1
 \section{Praktischer Teil}
 
-Beim überlegen, wie ich mein Serversystem aufbaue und welche Technologien ich benutzten werde, war mir schnell klar, dass ich hauptsächlich in Javascript programmieren will, da ich dadurch die Webseite und den Server in der gleichen Sprache programmieren kann.
-Damit ich den Server in JS programmieren kann, benutze ich die NodeJS-Umgebung, die mir es ermöglicht, Javascript code von einem Terminal auszuführen.
+Beim Überlegen, wie ich mein Serversystem aufbaue und welche Technologien ich benutzen werde, war mir schnell klar, dass ich hauptsächlich in Javascript programmieren will, da ich dadurch die Webseite und den Server in der gleichen Sprache programmieren kann.
+Damit ich den Server in JS programmieren kann, benutze ich die NodeJS-Umgebung, die mir es ermöglicht, Javascript Code von einem Terminal auszuführen.
 
-Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Biblioteken gibt.
+Ich wählte die Datenbank MongoDB, eine NoSQL-DB, da es für diese Datenbank in JS sehr gute Bibliotheken gibt.
 
-Für die Programmierung des Mikrokontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
-noch keine stabile Implementierung für den ESP32\footnote{Mikrokontroller der ein intigriertes WLAN Modul hat.} gab.
+Für die Programmierung des Mikrocontrollers musste ich \texttt{C++} benutzen, da es für die Alternative (Rust)
+noch keine stabile Implementierung für den ESP32\footnote{Mikrocontroller, der ein integriertes WLAN Modul hat.} gab.
 
 \subsection{Initialisierung des Projektes} % {{{2
 
 Ein neues NodeJS Projekt erstellt man mit dem Befehl \texttt{\$ yarn init}.
-Mit diesem Befehl generiert die \texttt{package.json} Datei.
+Dieser Befehl generiert eine \texttt{package.json} Datei.
 Sie enthält alle Informationen über das Projekt. Siehe Listing~\ref{lst:package}
 
 
@@ -411,9 +411,9 @@ Sie enthält alle Informationen über das Projekt. Siehe Listing~\ref{lst:packag
 \caption{Beispiel einer \texttt{package.json}\label{lst:package}}
 \end{listing}
 
-Nach dem erstellen dieser Datei kann man mit dem Befehl \mintinline{sh}{yarn add <bibliothek>} und \mintinline{sh}{yarn add <bibliothek> --dev} Biblioteken dem projekt hinzufügen, wobei \mintinline{sh}{--dev} die Bibliothek als Entwicklungsabhänigkeit (devdependencie) hinzufügt.
+Nach dem Erstellen dieser Datei kann man mit dem Befehl \mintinline{sh}{yarn add <bibliothek>} und \mintinline{sh}{yarn add <bibliothek> --dev} Bibliotheken dem Projekt hinzufügen, wobei \mintinline{sh}{--dev} die Bibliothek als Entwicklungsabhängigkeit (devdependency) hinzufügt.
 
-In meiner Jahresarbeit benutze ich die folgenden Biblioteken:
+In meiner Jahresarbeit benutze ich die folgenden Bibliotheken:
 
 \begin{description}
 	\item[dotenv] initialisiert Umgebungsvariablen, die Informationen wie Datenbankpasswörter und andere Konfigurationen enthalten.
@@ -421,24 +421,24 @@ In meiner Jahresarbeit benutze ich die folgenden Biblioteken:
 	\item[mongoose] ist eine Bibliothek, die die Integration von MongoDB erleichtert.
 \end{description}
 
-Zum Entwickeln des Server habe ich zusetzlich \texttt{nodemon} und \texttt{eslint} als Entwicklungsabhänigkeit meinem Projekt hinzugefügt.
+Zum Entwickeln des Server habe ich zusätzlich \texttt{nodemon} und \texttt{eslint} als Entwicklungsabhängigkeit meinem Projekt hinzugefügt.
 
 \begin{description}
-	\item[nodemon] beobachtet meinen Source-Code und stattet den Server neu sobald man etwas im Quelltext endert.
-	\item[eslint] zeigt Syntaxfehler beim entwickelt an.
+	\item[nodemon] beobachtet meinen Source-Code und startet den Server neu, sobald man etwas im Quelltext ändert.
+	\item[eslint] zeigt Syntaxfehler beim Entwickeln an.
 \end{description}
 
-Des weiteren kann man in der \texttt{package.json} eigene scripte hizufügen z.B. zum Starten des Server oder einer Entwiklungsumgebung.
+Des Weiteren kann man in der \texttt{package.json} eigene Scripte hinzufügen z.B. zum Starten des Server oder einer Entwicklungsumgebung.
 
 \subsection{Initialisierung des Webservers} % {{{2
 
-Bei der Initialiesierung des Webservers bin ich dem Guide auf der ExpressJS Webseite gefolgt.\autocite{Expressjs}
+Bei der Initialisierung des Webservers bin ich dem Guide auf der ExpressJS Webseite gefolgt.\autocite{Expressjs}
 
-Als erstess muss man Express importiren. In Javascript geht das mit dem \js{require()} Befehl.
-Wenn man Express importiert hat erstellt man einen neuern Server in dem man die importierte Funktion ausführt und das Ergebnis in einer Variable speichert.
-Um eine neue Route hinzuzufügen benutzt man die Funktion \js{server.get(route, fn(req, res))}
-Der erste Parameter der Funktion ist eine Adresse. Der Zweite ist eine Funktion die Steuert was auf der Route Geschehen soll.
-Um den Server nun zu Staten benutzt man die Funktion \js{server.listen(port, callback)}.
+Als Erstes muss man Express importieren. In Javascript geht das mit dem \js{require()} Befehl.
+Wenn man Express importiert hat, erstellt man einen neuen Server, in dem man die importierte Funktion ausführt und das Ergebnis in eine Variable speichert.
+Um eine neue Route hinzuzufügen, benutzt man die Funktion \js{server.get(route, fn(req, res))}
+Der erste Parameter der Funktion ist eine Adresse. Der Zweite ist eine Funktion, die steuert, was auf der Route geschehen soll.
+Um den Server zu starten, benutzt man die Funktion \js{server.listen(port, callback)}.
 Siehe Listing~\ref{lst:initserver}.
 
 \begin{listing}[ht]
@@ -459,7 +459,7 @@ server.listen(3000, () => {
 
 \subsection{Konfiguration der Umgebung} % {{{2
 
-Bevor ich die Datenbank eingebunden habe, muste ich einige Umgebungsvariablen festlegen.
+Bevor ich die Datenbank eingebunden habe, musste ich einige Umgebungsvariablen festlegen.
 Dafür benutzt man eine versteckte Datei mit dem Namen \texttt{.env}.
 \begin{listing}[ht]
 \centering
@@ -474,7 +474,7 @@ PUBLICDIR="./exampleFrontend"
 Um die Umgebungsvariablen im Programm zu benutzen, muss man die Funktion \js{require("dotenv").config()} ausführen.
 Die Variablen werden daraufhin im Objekt \js{process.env} gespeichert.
 
-Um also den Port, auf dem der Server läuft, per Umgebungsvariablen zu bestimmen, muss man in \textbf{\js{server.listen}} den für \textbf{\texttt{port}} fest eingebundenen Wert mit \textbf{\js{process.env.PORT}} erstetzen.
+Um also den Port, auf dem der Server läuft, per Umgebungsvariablen zu bestimmen, muss man in \textbf{\js{server.listen}} den für \textbf{\texttt{port}} fest eingebundenen Wert mit \textbf{\js{process.env.PORT}} ersetzen.
 
 Die zweite Variable in Listing~\ref{lst:dotenv} ist für die Datenbank da.
 Sie enthält eine URI mit den Informationen zur Verbindung mit der Datenbank.
@@ -482,10 +482,10 @@ Sie ist wie folgt formatiert:
 
 \texttt{mongodb://<benutzer>:<password>@<adresse>/<datenbank>}.
 
-Da ich die Datenbank und den Server auf dem gleichen Gerät laufen habe, und der Port der Datenbank nicht von ausserhalb des Gerätes zugänglich ist, brauche ich die Adresse (\texttt{localhost}\footnote{localhost bezieht sich immer auf die IP-Adresse des aktuellen Gerätes (127.0.0.1) }) und die Datenbank (\texttt{bees}).
+Da ich die Datenbank und den Server auf dem gleichen Gerät laufen habe und der Port der Datenbank nicht von außerhalb des Gerätes zugänglich ist, brauche ich die Adresse (\texttt{localhost}\footnote{localhost bezieht sich immer auf die IP-Adresse des aktuellen Gerätes (127.0.0.1) }) und die Datenbank (\texttt{bees}).
 
-Die dritte der Umgebungsvariablen bestimmt den Ortner auf dem Gerät, wo die Dateien für die Webseite gespeichert sind.
-Um die Webseite zu hosten, habe ich zunächst kontroliert, ob ein Pfad in der Variable \texttt{PUBLICDIR} angegeben ist. Im Falle eines Pfades hoste ich die Webseite. Siehe Listing~\ref{lst:pubdir}
+Die dritte der Umgebungsvariablen bestimmt den Ordner auf dem Gerät, wo die Dateien für die Webseite gespeichert sind.
+Um die Webseite zu hosten, habe ich zunächst kontrolliert, ob ein Pfad in der Variable \texttt{PUBLICDIR} angegeben ist. Im Falle eines Pfades hoste ich die Webseite. Siehe Listing~\ref{lst:pubdir}
 \begin{listing}[ht]
 \centering
 \begin{minted}{javascript}
@@ -501,16 +501,16 @@ if (publicDir) {
 \end{listing}
 
 
-\subsection[Einbettung der Datenbank]{Einbinden der Datenbank} % {{{2
+\subsection[Einbinden der Datenbank]{Einbinden der Datenbank} % {{{2
 
-Zum Einbetten der Datenbank habe ich die Bibliothek Mongoose benutzt. Sie ist eine Erweiterung der officiellen MongoDB Bibliothek die es ermöglicht mit Schemata zu Arbeiten.
+Zum Einbinden der Datenbank habe ich die Bibliothek Mongoose benutzt. Sie ist eine Erweiterung der offiziellen MongoDB Bibliothek, die es ermöglicht, mit Schemata zu arbeiten.
 
-Um eine Datenbank mit Mongoose in ein Projekt einzubinden bracht man die Datenbank URI.
-Damit ich diese beim programmieren besser verfügbar habe, habe ich sie in einer Konstanten abgelegt.
+Um eine Datenbank mit Mongoose in ein Projekt einzubinden braucht man die Datenbank URI\@.
+Damit ich diese beim Programmieren besser verfügbar habe, habe ich sie in einer Konstanten abgelegt.
 Um eine Verbindung mit der Datenbank herzustellen, wird die Funktion \js{mongoose.connect} benutzt.
-Sie speicher hinterleget eine Referenz zur Datenbank in \js{mongoose.connection} welche ich in der Variable \js{db} abspeiche.
-Da bei dem verbinden mit einer DB viele Fehler passieren können, ist \enquote{Error Handeling} von Nöten, um den Fehler erkennen und beheben zu können.
-Falls die verbindung offen ist kann der Server gestartet werden. Siehe Listing~\ref{lst:connectDB}.
+Sie speicher eine Referenz zur Datenbank in \js{mongoose.connection}, welche ich in der Variable \js{db} abspeichre.
+Da bei dem Verbinden mit einer DB viele Fehler passieren können, ist \enquote{Error Handeling} von Nöten, um den Fehler erkennen und beheben zu können.
+Falls die Verbindung offen ist, kann der Server gestartet werden. Siehe Listing~\ref{lst:connectDB}.
 \begin{listing}[ht]
 \centering
 \begin{minted}{javascript}
@@ -533,7 +533,7 @@ db.once("open", () => {
 
 \subsection{Erstellen eines Schemas für die Datenbank} % {{{2
 
-Ich entschied mich, für jeden Bienenstock ein Dokument inder Datenbank zu erzeugen. Damit die Dokumente die gleiche Form haben, benutzt man sogennante Schemata, in denen man die einzelnen Felder des Dokuments bestimmt und ihnen einen betimmten Type zuweist. Das Schema, für das ich mich entschieden habe, enthält zwei Felder: Das erste Feld enthält den Namen des Bienenstockes in Form eines Strings\footnote{Die String ist Type der Zeichenketten speichert. Er exestiert in den meisten Programmiersprachen.}, das zweite Feld enthält eine Liste an Objekten, die jeweils ein Datum mit Uhrzeit und ein Gewicht enthalten. Siehe Listing~\ref{lst:HiveSchema}
+Ich entschied mich, für jeden Bienenstock ein Dokument in der Datenbank zu erzeugen. Damit die Dokumente die gleiche Form haben, benutzt man sogenannte Schemata, in denen man die einzelnen Felder des Dokuments bestimmt und ihnen einen bestimmten Type zuweist. Das Schema, für das ich mich entschieden habe, enthält zwei Felder: Das erste Feld enthält den Namen des Bienenstockes in Form eines Strings\footnote{Die String ist Type, der Zeichenketten speichert. Er existiert in den meisten Programmiersprachen.}, das zweite Feld enthält eine Liste an Objekten, die jeweils ein Datum mit Uhrzeit und ein Gewicht enthalten. Siehe Listing~\ref{lst:HiveSchema}
 
 Mit dem Schema kann man eine Collection in der Datenbank erstellen, welche die Dokumente speichern wird.
 
@@ -544,7 +544,7 @@ Mit dem Schema kann man eine Collection in der Datenbank erstellen, welche die D
 
 \subsection{Erstellen der REST-API} % {{{2
 
-Wie in Abschnitt~\autoref{sec:function} erwähnt benutze ich zur Kommunikation mit den Waagen und der Webseite eine REST-API.\@ Um diese zu programmieren, musste ich für jede Route eine Funktion erstellen, welche die Anfragen verarbeitet. Eine dieser Funktionen ist in Listing~\ref{lst:route/add}. Da alle Routes ziemlich aufgebaut sind werde ich nur eine in meiner Jahresarbeit erklären. Die Route welche ich dafür ausgewählt habe ist dazu da eingehende Daten in der DB abzuspeichern. 
+Wie in \autoref{sec:function} beschrieben, benutze ich zur Kommunikation mit den Waagen und der Webseite eine REST-API.\@ Um diese zu programmieren, musste ich für jede Route eine Funktion erstellen, welche die Anfragen verarbeitet. Eine dieser Funktionen ist in Listing~\ref{lst:route/add}. Da alle Routes ziemlich ähnlich aufgebaut sind, werde ich nur eine in meiner Jahresarbeit erklären. Die Route welche, ich dafür ausgewählt habe, ist dazu da eingehende Daten in der DB abzuspeichern. 
 \begin{listing}[ht]
 \begin{minted}[fontsize=\footnotesize,linenos]{javascript}
 app.post("/add", (req, res) => {
@@ -575,18 +575,18 @@ app.post("/add", (req, res) => {
 \caption{Route /add}\label{lst:route/add}
 \end{listing}
 
-Jede Funktion, welche Anfragen auf eine Route bearbeitet, bekommt zwei Parameter: Der erste \js{(req)} enthält alle Angeben der Anfrage. Der zweite \js{(res)} alle Funktionen die für die Antwort benörigt werden.
+Jede Funktion, welche Anfragen auf eine Route bearbeitet, bekommt zwei Parameter: Der erste \js{(req)} enthält alle Angaben der Anfrage. Der zweite \js{(res)} alle Funktionen, die für die Antwort benötigt werden.
 
-Das erste was in der Funktion passiert ist dass getestet wird ob in der Anfrage alle Daten die enthalten sein sollen, mitgeliefert sind (Listing~\autoref{lst:route/add}~Linie~2).
-Falls dies nicht der Fall ist sendet der Server den HTTP Statuscode 404\footnote{404: nicht gefunden} (l.24).
-Wenn jedoch die alle Daten angegeben sind durchsucht er die Datenbank nach einem Dokument mit der angegebenen \js{_id} (L.4).
-Die Funktion welche zum Durchsuchen der Datenbank benutzt wird bekommt außer der \js{_id} eine sogenannte \emph{\enquote{Callback-Funktion}} welche ausgeführt wird sobald die Datenbank durchsucht wurde.
-Diese Callback-Funktion bekommt von der Datenbank zwei Parameter: Einen Error \js{(err)} welcher leer bleibt wenn es keine Fehler gibt und das Dokument welches leer bleibt, falls keins existiert. 
-Falls die Callback-Funktion einen Error erhält sendet sie eine leere Antwort mit dem Statuscode \texttt{500}, welcher einen internen Serverfehler implizit (L.5ff). Falls das nicht der Fall ist, wird überprüft ob ein Dokument existiert. Kein Dokument $\Rightarrow$ \texttt{404} (L.9ff). Bei gefundenem Dokument wird, ein neues Objekt mit dem aktuellen Zeitpunkt (\js{Date.now()}) und dem Gewicht, dem Dataarray des Dokumentes hinzufügt (L.12). Wenn das erfolgreich geschieht wird das Objekt in der Antwort zurück gesendet(L.19). Sonst \texttt{500} (L.17).
+Zu Beginn wird in der Funktion getestet, ob in der Anfrage alle Daten die enthalten sein sollen, mitgeliefert sind (Listing~\autoref{lst:route/add}~Linie~2).
+Falls dies nicht der Fall sein sollte, sendet der Server den HTTP Statuscode 404\footnote{404: nicht gefunden} (l.24).
+Wenn jedoch alle Daten angegeben sind, durchsucht er die Datenbank nach einem Dokument mit der angegebenen \js{_id} (L.4).
+Die Funktion, welche zum Durchsuchen der Datenbank benutzt wird bekommt außer der \js{_id} eine sogenannte \emph{\enquote{Callback-Funktion}}, welche ausgeführt wird, sobald die Datenbank durchsucht wurde.
+Diese Callback-Funktion bekommt von der Datenbank zwei Parameter: Einen Error \js{(err)} welcher leer bleibt wenn es keine Fehler gibt und das Dokument, welches leer bleibt, falls keins existiert. 
+Falls die Callback-Funktion einen Error erhält, sendet sie eine leere Antwort mit dem Statuscode \texttt{500}, welcher einen internen Serverfehler implizit (L.5ff). Falls das nicht der Fall ist, wird überprüft, ob ein Dokument existiert. Kein Dokument $\Rightarrow$ \texttt{404} (L.9ff). Bei gefundenem Dokument wird ein neues Objekt mit dem aktuellen Zeitpunkt (\js{Date.now()}) und dem Gewicht, dem Dataarray des Dokumentes hinzufügt (L.12). Wenn das erfolgreich geschieht, wird das Objekt in der Antwort zurück gesendet(L.19). Sonst \texttt{500} (L.17).
 
 \subsection[Tests]{Hilfsprogramme zum Testen des Systems} % {{{2
 
-Damit ich den Server während der Programmierung testen konnte, ohne die Bienenstockwaagen fertig gestellt zu haben. Habe ich ein Programm geschrieben das den Output einer Waage simuliert. Im gegensatz zur Fertigen Waage sendet das Programm in viel geringeren Abständen Werte, welche das schnellere auffinden von Fehlern im System erleichtert.
+Damit ich den Server während der Programmierung testen konnte, ohne die Bienenstockwaagen fertig gestellt zu haben, habe ich ein Programm geschrieben das den Output einer Waage simuliert. Im gegensatz zur Fertigen Waage sendet das Programm in viel geringeren Abständen Werte, welche das schnellere auffinden von Fehlern im System erleichtert.
 % Literaturverzeichnis {{{1
 \clearpage{}
 \printbibheading{}
