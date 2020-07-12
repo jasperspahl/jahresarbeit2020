@@ -256,13 +256,13 @@ Im Grunde ist es nur eine Waage welche ihre Werte in regelmäßigen Abständen s
 mit Hilfe von SMS oder Internet an den Betreiber übermittelt.
 
 Im Falle meiner Bienenstockwaage habe ich mir ein System überlegt, das gut skalierbar ist.
-Dieses System besteht aus mehreren Bestandteilen welche über verschiedene APIs mit einander kommunizieren.
+Dieses System besteht aus mehreren Bestandteilen, welche über verschiedene APIs miteinander kommunizieren.
 
-Das wichtigste Element davon ist der Hauptserver auf dem die Datenbank MongoDB und der Webserver laufen.
+Das wichtigste Element davon ist der Hauptserver, auf dem die Datenbank MongoDB und der Webserver laufen.
 Ich habe mir dafür einen Raspberry Pi 3B+ angeschafft, da ich alle Daten lokal speichern wollte.
 Das muss man aber nicht, da man sich auch über die Plattform \href{https://www.mongodb.com/cloud/atlas}{MongoDB Atlas} eine Datenbank mieten kann und mit Hilfe von \href{https://www.linode.com}{Linode} oder \href{https://www.digitalocean.com/}{Digital Ocean} den Webserver hosten kann.
 
-\begin{figure}[ht]
+\begin{figure}[ht] % {{{
 	\centering
 	\begin{tikzpicture}
 
@@ -281,21 +281,21 @@ Das muss man aber nicht, da man sich auch über die Plattform \href{https://www.
 		\draw[Stealth-Stealth] (app) -- (server);
 	\end{tikzpicture}
 	\caption{Netzwerk Diagramm meines Serversystems\label{abb:networkdiagram}}
-\end{figure}
+\end{figure} %}}}
 
-Der Hauptbestanntteil meines Systems ist ein Zentraler Webserver welcher zur komonication mit der Webseite und den Bienenstockwaagen eine REST-API zur verfügung stellt.
+Der Hauptbestandteil meines Systems ist ein zentraler Webserver welcher zur Kommunikation mit der Webseite und den Bienenstockwaagen eine REST-API zur Verfügung stellt.
 
 % Die Waage {{{2
 \subsection{Die Waage}
 
-Die Bienenstockwaage funktioniert wie eine gewöhnliche Waage, welche man in dem meisten Haushalten findet.
-Um zu verstehen, wie eine gewöhnliche Waage funktioniert muss man verstehen, wie eine Wägezelle funktioniert.
+Die Bienenstockwaage funktioniert wie eine gewöhnliche digitale Waage, welche man in den meisten Haushalten findet.
+Um zu Verstehen, wie eine gewöhnliche Waage funktioniert, muss man die Funktionsweise einer Wägezelle begreifen.
 
 \begin{quote}
 	\enquote{Wägezellen sind eine Sonderform der Kraftaufnehmer (Kraftsensoren) zum Aufbau von Wägevorrichtungen, d.h.\ zum Verwiegen mit Waagen.}~\autocite[vgl.][]{WikiWaegezelle}
 \end{quote}
 
-\begin{wrapfigure}{l}{7cm}
+\begin{wrapfigure}{l}{7cm} % {{{
 	\centering
 	\begin{circuitikz}[european]
 		\draw (0, 4) to[battery1] (0,0) -- (3,0) to[R] (1,2) to[R] (3,4) to[R] (5,2) to[R] (3,0);
@@ -305,18 +305,20 @@ Um zu verstehen, wie eine gewöhnliche Waage funktioniert muss man verstehen, wi
 	\end{circuitikz}
 	\caption{Schaltung der Wägezellen\label{abb:circuit}}
 
-\end{wrapfigure}
+\end{wrapfigure} %}}}
 
 Sie besteht aus einem Federkörper\footnote{Metallstück welches etwas flexibel ist}, auf dem ein Dehnungsmessstreifen\footnote{Im folgenden als DMS abgekürzt} fixiert ist.
 Dieser DMS verändert je nach Dehnung seinen elektrischen Widerstand.
-Wegen dieser Eingenschaft bekommt man,
-wenn man mehrere Wägezellen wie in Abbildung~\ref{abb:circuit} gezeigt verkabelt und den Spannungsunterschied zwischen $V_0$ und $V_1$ misst,
-einen Spannungsunsterschied der in Relation zu dem Gewicht auf den Wägezellen ist.
+Wegen dieser Eigenschaft bekommt man,
+wenn man mehrere Wägezellen,
+wie in Abbildung~\ref{abb:circuit} gezeigt,
+verkabelt und den Spannungsunterschied zwischen $V_0$ und $V_1$ misst,
+einen Spannungsunterschied der in Relation zu dem Gewicht auf den Wägezellen ist.
 
 Der Spannungsunterschied wird nun von einem Digital- zu A\-na\-log-Um\-wandler in ein digitales Signal umgewandelt welches mit Hilfe eines Mikrokontrolers weiter verarbeitet werden kann.
-Bei einer gewöhnlichen Waage wird der Wert meist mit einer Konstante multipliziert damit der Wert einer Masseinheit($kg$) entspricht. Dieser wird auf einem Bildschirm dargestellt.
+Bei einer gewöhnlichen Waage wird der Wert meist mit einer Konstante multipliziert damit der Wert einer Maßeinheit($kg$) entspricht. Dieser wird auf einem Bildschirm dargestellt.
 
-Im Falle meiner Waage wird der wird der Wert an den Server übermittelt.
+Bei meiner Waage wird der wird der Wert an den Server übermittelt.
 
 % Kommunikation {{{2
 \subsection[Kommunikation Waage --- Server --- DB]{Kommunikation Bienenstockwaage --- Server --- Datenbank}\label{sec:WaSeDB}
