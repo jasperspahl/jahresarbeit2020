@@ -326,7 +326,7 @@ Bei meiner Waage wird der wird der Wert an den Server übermittelt.
 % Initialisierung {{{3
 \subsubsection[Initialisierung]{Initialisierung einer Bienenstockwaage}
 Die Beinenstockwaagen schicken an den Server zum Initialisieren eine \texttt{GET} Anfrage an die URL \texttt{/init/<name>}, wo \texttt{<name>} durch den individuellen Namen der Waage ersetzt wird.
-Der Server durchsucht darauf hin die Datenbank nach einem Dokument mit den Feld \texttt{name: <name>}.
+Der Server durchsucht darauf hin die Datenbank nach einem Dokument mit dem Feld \texttt{name: <name>}.
 Wenn er ein Dokument findet, schickt er die \texttt{\_id} des Dokuments an die Bienenstockwaage zurück.
 Falls in der Datenbank jedoch kein Dokument mit dem Feld \texttt{name: <name>} enthalten ist,
 erstellt er ein Dokument mit folgenden Feldern: \texttt{name: <name>} und \texttt{data: []}\footnote{\texttt{[]} ist die notation für ein leeres Array in vielen Programmiersprachen}. Siehe Listing~\ref{lst:document}
