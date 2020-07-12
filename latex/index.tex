@@ -1,4 +1,4 @@
-\documentclass[a4paper, ngerman, 11pt]{scrartcl}
+\documentclass[a4paper, ngerman, 12pt]{scrartcl}
 % shell-escape xelatex biber
 % TODO: [ ] Was ist eine REST-API
 %	[ ] Hosten definiren
@@ -586,7 +586,18 @@ Falls die Callback-Funktion einen Error erhält, sendet sie eine leere Antwort m
 
 \subsection[Tests]{Hilfsprogramme zum Testen des Systems} % {{{2
 
-Damit ich den Server während der Programmierung testen konnte, ohne die Bienenstockwaagen fertig gestellt zu haben, habe ich ein Programm geschrieben das den Output einer Waage simuliert. Im gegensatz zur Fertigen Waage sendet das Programm in viel geringeren Abständen Werte, welche das schnellere auffinden von Fehlern im System erleichtert.
+Damit ich den Server während der Programmierung testen konnte, ohne die Bienenstockwaagen fertig gestellt zu haben, habe ich ein Programm geschrieben, das den Output einer Waage simuliert. Im Gegensatz zur fertigen Waage sendet das Programm in viel geringeren Abständen Werte, welche das schnellere auffinden von Fehlern im System erleichtert.
+
+\subsection[Bau der Waage]{Zusammenbau der Waage} % {{{2
+
+Bei dem Bau der Bienenstockwaage, lief nicht alles so gut wie geplant. Die Wägezellen, die ich mir aus China bestellt hatte, kame wegen Corona erst nach zwei Monaten an. Deswegen konnte ich, als ich beim Programmieren des ersten Prototyps, bemerkte das eine oder mehrere der Zellen nicht richtig funktioniereten, keine neuen bestellen.
+
+Ohne die funktionirende Hardware war es mir unmöglich, Fehler in der Programmierung des Mikrocontrollers zu erkennen.
+
+\section{Fazit} % {{{1
+
+
+
 % Literaturverzeichnis {{{1
 \clearpage{}
 \printbibheading{}
