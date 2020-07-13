@@ -1,4 +1,4 @@
-\documentclass[a4paper, ngerman, 12pt]{scrartcl}
+\documentclass[a4paper, ngerman, 11pt]{scrartcl}
 % shell-escape xelatex biber
 % TODO: [ ] Was ist eine REST-API
 %	[ ] Hosten definiren
@@ -36,6 +36,7 @@
 \textcolor[rgb]{0.5,0.5,1.0}{\scriptsize
 \oldstylenums{\arabic{FancyVerbLine}} }}
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
+\renewcommand{\listoflistingscaption}{Quelltextverzeichniss}
 %\usemintedstyle{solarized-dark}
 % Heading {{{2
 \pagestyle{fancy}
@@ -592,13 +593,24 @@ Damit ich den Server während der Programmierung testen konnte, ohne die Bienens
 
 Bei dem Bau der Bienenstockwaage, lief nicht alles so gut wie geplant. Die Wägezellen, die ich mir aus China bestellt hatte, kamen wegen Corona erst nach zwei Monaten an. Deswegen konnte ich, als ich beim Programmieren des ersten Prototyps bemerkte, dass eine oder mehrere der Zellen nicht richtig funktioniereten, keine Neuen bestellen.
 
-Ohne die funktionirende Hardware war es mir unmöglich, Fehler in der Programmierung des Mikrocontrollers zu erkennen, weswegen ich die Waage nicht fertigstellen konnte.
+Ohne die funktionierende Hardware war es mir unmöglich, Fehler in der Programmierung des Mikrocontrollers zu erkennen, weswegen ich die Waage nicht fertigstellen konnte.
 
 \section{Fazit} % {{{1
 
-% Nächstes man kein Javascript für den Server aufgrund of no static type
+Die Entwicklung des Projekts hat mir viel Spaß gemacht, da ich im gegensatz zu den vielen kleineren Scripten, welche ich häufig im meiner Freizeit verfasse, über eine längere Zeit an einem größeren Projekt arbeiten konnte.
+Dabei war es mir möglich mein vorhandenes Wissen anzuwenden und zu erweitern vorallem im Bereich der Server entwicklung.
+
+Allerdings sind mir während dem Programmieren auch viele Sachen aufgefallen, die ich, wenn ich das nächste Mal einen Server programmiere, anders machen werde. 
+Beispielsweise die Wahl der Programmiersprache, da mich beim Programmieren gegen Ende am meisten gestört hat, dass ich den Server in Javascript geschrieben habe.
+Dadurch dass die Sprache keine statischen Typen in Variablen hat, werden keine Fehler beim Kompilieren erkannt.
+Beim nächsten Mal würde ich eine Programmiersprache wie Rust wählen, die durch ihren sehr guten Compiler die meisten Fehler erkennt.
+So vermeidet man in großen Projekten unötige Fehler.
+
+Solche Erkentnisse tretten beim Programmieren jedoch häufiger auf und sind auch wichtig für den Entwicklungsprozess, da Programmieren meist kein linearer Vorgang ist, sondern durch das ständige Fehlerbeheben immer wieder neue Lösungsansätze fordert.
+Somit kann man durch das Programmieren die Fähigkeit entwickeln, beim Auftreten von Fehlern nicht aufzegeben, sondern neue Lösungen zu finden und umzudenken.
 
 % Literaturverzeichnis {{{1
+\nocite{Raspi}
 \clearpage{}
 \printbibheading{}
 \printbibliography[type=book,heading=subbibliography,title={Buch Quellen}]
