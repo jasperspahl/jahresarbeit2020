@@ -545,7 +545,7 @@ Mit dem Schema kann man eine Collection in der Datenbank erstellen, welche die D
 
 \subsection{Erstellen der REST-API} % {{{2
 
-Wie in \autoref{sec:function} beschrieben, benutze ich zur Kommunikation mit den Waagen und der Webseite eine REST-API.\@ Um diese zu programmieren, musste ich für jede Route eine Funktion erstellen, welche die Anfragen verarbeitet. Eine dieser Funktionen ist in Listing~\ref{lst:route/add}. Da alle Routes ziemlich ähnlich aufgebaut sind, werde ich nur eine in meiner Jahresarbeit erklären. Die Route welche, ich dafür ausgewählt habe, ist dazu da eingehende Daten in der DB abzuspeichern. 
+Wie in \autoref{sec:function} beschrieben, benutze ich zur Kommunikation mit den Waagen und der Webseite eine REST-API.\@ Um diese zu programmieren, musste ich für jede Route eine Funktion erstellen, welche die Anfragen verarbeitet. Eine dieser Funktionen ist in Listing~\ref{lst:route/add}. Da alle Routes ziemlich ähnlich aufgebaut sind, werde ich nur eine in meiner Jahresarbeit erklären. Die Route welche, ich dafür ausgewählt habe, ist dazu da eingehende Daten in der DB abzuspeichern.
 \begin{listing}[ht]
 \begin{minted}[fontsize=\footnotesize,linenos]{javascript}
 app.post("/add", (req, res) => {
@@ -582,7 +582,7 @@ Zu Beginn wird in der Funktion getestet, ob in der Anfrage alle Daten die enthal
 Falls dies nicht der Fall sein sollte, sendet der Server den HTTP Statuscode 404\footnote{404: nicht gefunden} (l.24).
 Wenn jedoch alle Daten angegeben sind, durchsucht er die Datenbank nach einem Dokument mit der angegebenen \js{_id} (L.4).
 Die Funktion, welche zum Durchsuchen der Datenbank benutzt wird bekommt außer der \js{_id} eine sogenannte \emph{\enquote{Callback-Funktion}}, welche ausgeführt wird, sobald die Datenbank durchsucht wurde.
-Diese Callback-Funktion bekommt von der Datenbank zwei Parameter: Einen Error \js{(err)} welcher leer bleibt wenn es keine Fehler gibt und das Dokument, welches leer bleibt, falls keins existiert. 
+Diese Callback-Funktion bekommt von der Datenbank zwei Parameter: Einen Error \js{(err)} welcher leer bleibt wenn es keine Fehler gibt und das Dokument, welches leer bleibt, falls keins existiert.
 Falls die Callback-Funktion einen Error erhält, sendet sie eine leere Antwort mit dem Statuscode \texttt{500}, welcher einen internen Serverfehler implizit (L.5ff). Falls das nicht der Fall ist, wird überprüft, ob ein Dokument existiert. Kein Dokument $\Rightarrow$ \texttt{404} (L.9ff). Bei gefundenem Dokument wird ein neues Objekt mit dem aktuellen Zeitpunkt (\js{Date.now()}) und dem Gewicht, dem Dataarray des Dokumentes hinzufügt (L.12). Wenn das erfolgreich geschieht, wird das Objekt in der Antwort zurück gesendet(L.19). Sonst \texttt{500} (L.17).
 
 \subsection[Tests]{Hilfsprogramme zum Testen des Systems} % {{{2
@@ -597,10 +597,10 @@ Ohne die funktionierende Hardware war es mir unmöglich, Fehler in der Programmi
 
 \section{Fazit} % {{{1
 
-Die Entwicklung des Projekts hat mir viel Spaß gemacht, da ich im gegensatz zu den vielen kleineren Scripten, welche ich häufig im meiner Freizeit verfasse, über eine längere Zeit an einem größeren Projekt arbeiten konnte.
-Dabei war es mir möglich mein vorhandenes Wissen anzuwenden und zu erweitern vorallem im Bereich der Server entwicklung.
+Die Entwicklung des Projekts hat mir viel Spaß gemacht, da ich im Gegensatz zu den vielen kleineren Scripten, welche ich häufig im meiner Freizeit verfasse, über eine längere Zeit an einem größeren Projekt arbeiten konnte.
+Dabei war es mir möglich, mein vorhandenes Wissen anzuwenden und zu erweitern vor allem im Bereich der Serverentwicklung.
 
-Allerdings sind mir während dem Programmieren auch viele Sachen aufgefallen, die ich, wenn ich das nächste Mal einen Server programmiere, anders machen werde. 
+Allerdings sind mir während des Programmierens auch viele Sachen aufgefallen, die ich, wenn ich das nächste Mal einen Server programmiere, anders machen werde.
 Beispielsweise die Wahl der Programmiersprache, da mich beim Programmieren gegen Ende am meisten gestört hat, dass ich den Server in Javascript geschrieben habe.
 Dadurch dass die Sprache keine statischen Typen in Variablen hat, werden keine Fehler beim Kompilieren erkannt.
 Beim nächsten Mal würde ich eine Programmiersprache wie Rust wählen, die durch ihren sehr guten Compiler die meisten Fehler erkennt.
